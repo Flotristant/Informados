@@ -11,7 +11,11 @@ class PersonaController {
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 	def login = {}
-	def logout = {}
+	def logout = {
+		flash.message = "Goodbye ${session.user.userName}"
+		session.user = null
+		redirect(action:"login")
+	}
 	def authenticate = {
 		def user =
 				Persona.findByUserNameAndPassword(params.userName, params.password)

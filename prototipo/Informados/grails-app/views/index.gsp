@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- <meta name="layout" content="main"/> -->
+		<meta name="layout" content="main"/> 
 		<title>Informados</title>
 		<style type="text/css" media="screen">
+			#loginHeader {
+				float: right;
+				color: #fff;
+			}
+
+			#loginHeader a {
+				color: #fff;
+			}
 			#status {
 				background-color: #eee;
 				border: .2em solid #fff;
