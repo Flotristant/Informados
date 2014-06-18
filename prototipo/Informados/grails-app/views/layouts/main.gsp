@@ -35,10 +35,10 @@
 				</div>
 			</g:else>
 		</fieldset></div>
-		<div class="header" id="grailsLogo" role="banner"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Informados"/></div>
-		<div class="footer" role="contentinfo"></div>
+		<div class="header" id="logo" role="banner"><img src="${resource(dir: 'images', file: 'informados_logo_3.png')}" alt="Informados"/></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:layoutBody/>
 		<r:layoutResources />
+		<div class="footer" role="contentinfo"></div>
 	</body>
 </html>
