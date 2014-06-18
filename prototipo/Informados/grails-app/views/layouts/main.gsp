@@ -19,18 +19,23 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Informados"/></div>
-		<g:if test="${session.user}">
-			<div align="right">
-			<div>hello ${session.user.userName}</div>
-			<g:link controller="persona" action="logout">Logout</g:link>
-			</div>
-		</g:if>
-		<g:else>
-			<div align="right">
-			<g:link controller="persona" action="login">Login</g:link>
-			</div>
-		</g:else>
+		<div><fieldset class="buttons">
+			<g:if test="${session.user}">
+				<div align="right">
+				<div>hello ${session.user.userName}</div>
+				<g:link controller="persona" action="logout">Logout</g:link>
+				</div>
+			</g:if>
+			<g:else>
+				<div align="right">
+				<g:link controller="persona" action="login">Login</g:link>
+				</div>
+				<div align="right">
+					<g:link controller="persona" action="registro">${message(code: 'deafult.button.nuevo.usuario.label', default: 'Registrarme!')}</g:link>
+				</div>
+			</g:else>
+		</fieldset></div>
+		<div class="header" id="grailsLogo" role="banner"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Informados"/></div>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:layoutBody/>

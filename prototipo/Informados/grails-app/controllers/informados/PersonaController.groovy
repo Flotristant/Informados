@@ -42,6 +42,14 @@ class PersonaController {
 	def create() {
 		respond new Persona(params)
 	}
+	
+	def registro() {
+		respond new Persona(params)
+	}
+	
+	def crearNuevaCuenta(Persona usuarioInstance) {
+		save(usuarioInstance)
+	}
 
 	@Transactional
 	def save(Persona usuarioInstance) {
