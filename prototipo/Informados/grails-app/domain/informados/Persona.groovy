@@ -7,6 +7,7 @@ class Persona {
 	String email
 	String userName
 	String password
+	String suscripcion
 
 	static constraints = {
 		nombre blank:false
@@ -14,6 +15,7 @@ class Persona {
 		userName blank:false
 		password size: 5..15, blank: false, password:true
 		email email: true, blank: false
+		suscripcion inList: ["Free", "Estudiante", "Profesional"]
 	}
 
 }

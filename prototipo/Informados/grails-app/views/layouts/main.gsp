@@ -23,12 +23,12 @@
 			<g:if test="${session.user}">
 				<div align="right">
 				<div>hello ${session.user.userName}</div>
-				<g:link controller="persona" action="logout">Logout</g:link>
+				<g:link controller="persona" action="logout">${message(code: 'deafult.button.logout.label', default: 'Registrarme!')}</g:link>
 				</div>
 			</g:if>
 			<g:else>
 				<div align="right">
-				<g:link controller="persona" action="login">Login</g:link>
+				<g:link controller="persona" action="login">${message(code: 'deafult.button.login.label', default: 'Registrarme!')}</g:link>
 				</div>
 				<div align="right">
 					<g:link controller="persona" action="registro">${message(code: 'deafult.button.nuevo.usuario.label', default: 'Registrarme!')}</g:link>

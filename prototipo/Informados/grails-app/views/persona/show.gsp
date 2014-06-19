@@ -68,6 +68,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${personaInstance?.suscripcion}">
+				<li class="fieldcontain">
+					<span id="suscripcion-label" class="property-label"><g:message code="persona.suscripcion.label" default="Suscripcion" /></span>
+					
+						<span class="property-value" aria-labelledby="suscripcion-label"><g:fieldValue bean="${personaInstance}" field="suscripcion"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${personaInstance?.edad}">
 				<li class="fieldcontain">
 					<span id="edad-label" class="property-label"><g:message code="persona.edad.label" default="Edad" /></span>

@@ -47,6 +47,15 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'suscripcion', 'error')} required">
+	<label for="suscripcion">
+		<g:message code="persona.suscripcion.label" default="Suscripcion" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select name="suscripcion" from="${personaInstance.constraints.suscripcion.inList}" required="" value="${personaInstance?.suscripcion}" valueMessagePrefix="persona.suscripcion"/>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'edad', 'error')} required">
 	<label for="edad">
 		<g:message code="persona.edad.label" default="Edad" />

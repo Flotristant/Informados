@@ -17,15 +17,20 @@ class PersonaController {
 		redirect(action:"login")
 	}
 	def authenticate = {
-		def user =
-				Persona.findByUserNameAndPassword(params.userName, params.password)
+		def user =	Persona.findByUserNameAndPassword(params.userName, params.password)
 		if(user){
 			session.user = user
 			flash.message = "Hello ${user.userName}!"
-			redirect(controller:"persona", action:"index")
+			if(user.suscripcion == "Profesional") {
+				redirect(controller:"persona", action:"show", id:user.id)
+			} else if(user.suscripcion == "Estudiante") {
+				redirect(controller:"persona", action:"show", id:user.id)
+			} else{
+				UsuarioFree rol = UsuarioFree.findByPersona(user)
+				redirect(controller:"usuarioFree", action:"show", id:rol.id)
+			}
 		}else{
-			flash.message =
-					"Sorry, ${params.userName}. Please try again."
+			flash.message = "Intenta de nuevo ${params.userName}."
 			redirect(action:"login")
 		}
 	}
@@ -42,13 +47,40 @@ class PersonaController {
 	def create() {
 		respond new Persona(params)
 	}
-	
+
 	def registro() {
 		respond new Persona(params)
 	}
-	
+
 	def crearNuevaCuenta(Persona usuarioInstance) {
-		save(usuarioInstance)
+		if (usuarioInstance == null) {
+			notFound()
+			return
+		}
+		if(usuarioInstance.hasErrors()){
+			respond usuarioInstance.errors, view:'registro'
+		}
+		usuarioInstance.save flush:true
+		switch(usuarioInstance.getSuscripcion()) {
+			case "Free":
+				UsuarioFree usuarioFree = new UsuarioFree(usuarioInstance)
+				usuarioFree.save flush:true
+				if(usuarioFree.hasErrors()){
+					respond usuarioInstance.errors, view:'registro'
+				}
+				redirect(action:"login")
+				break;
+			case "Estudiante":
+				UsuarioEstudiante usuarioEstudiante = new UsuarioEstudiante(usuarioInstance)
+				usuarioEstudiante.save flush:true
+				redirect(action:"login")
+				break;
+			case "Profesional":
+				UsuarioProfesional usuarioProfesional = new UsuarioProfesional(usuarioInstance)
+				usuarioProfesional.save flush:true
+				redirect(action:"login")
+				break;
+		}		
 	}
 
 	@Transactional
