@@ -33,6 +33,9 @@
 				<div align="right">
 					<g:link controller="persona" action="registro">${message(code: 'deafult.button.nuevo.usuario.label', default: 'Registrarme!')}</g:link>
 				</div>
+				<div align="right">
+					<g:link controller="app" action="">${message(code: 'deafult.button.nuevo.usuario.facebook', default: 'Ir a Facebook!')}</g:link>
+				</div>
 			</g:else>
 		</fieldset></div>
 		<div class="header" id="logo" role="banner"><img src="${resource(dir: 'images', file: 'informados_logo_3.png')}" alt="Informados"/></div>
