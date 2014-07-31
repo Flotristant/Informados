@@ -3,11 +3,11 @@ import informados.Persona
 class BootStrap {
 
 	def init = { servletContext ->
-		def admin = new Persona(userName:"admin", password:"wordpass", nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional")
-		admin.save()
+		/*def profesional = new Persona(userName:"profesional", password:"profesional", nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional")
+		profesional.save()
 		if(admin.hasErrors()){
-			println admin.errors
-		}
+			println profesional.errors
+		}*/
 		def estudiante = new Persona(userName:"estudiante",password:"estudiante",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Estudiante")
 		estudiante.save()
 		if(estudiante.hasErrors()){
@@ -22,6 +22,11 @@ class BootStrap {
 		free.save()
 		if(free.hasErrors()){
 			println free.errors
+		}
+		def admin = new Persona(userName:"admin",password:"admin",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Administrador")
+		admin.save()
+		if(free.hasErrors()){
+			println admin.errors
 		}
 
 		def destroy = {

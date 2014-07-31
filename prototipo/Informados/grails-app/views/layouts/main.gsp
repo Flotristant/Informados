@@ -23,7 +23,7 @@
 			<g:if test="${session.user}">
 				<div align="right">
 				<div>hello ${session.user.userName}</div>
-				<g:link controller="persona" action="logout">${message(code: 'deafult.button.logout.label', default: 'Registrarme!')}</g:link>
+				<g:link controller="persona" action="logout">${message(code: 'deafult.button.logout.label', default: 'Salir')}</g:link>
 				</div>
 			</g:if>
 			<g:else>

@@ -8,7 +8,7 @@ class Persona {
 	String userName
 	String password
 	String suscripcion
-
+	
 	static constraints = {
 		nombre blank:false
 		apellido blank:false
@@ -16,6 +16,10 @@ class Persona {
 		password size: 5..15, blank: false, password:true
 		email email: true, blank: false
 		suscripcion inList: ["Free", "Estudiante", "Profesional"]
+	}
+	
+	public Boolean isAdmin() {
+		return suscripcion=="Administrador"
 	}
 
 }
