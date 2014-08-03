@@ -47,14 +47,13 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'suscripcion', 'error')} required">
+ <div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'suscripcion', 'error')} required">
 	<label for="suscripcion">
 		<g:message code="persona.suscripcion.label" default="Suscripcion" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select name="suscripcion" from="${personaInstance.constraints.suscripcion.inList}" required="" value="${personaInstance?.suscripcion}" valueMessagePrefix="persona.suscripcion"/>
-
-</div>
+</div>  
 
 <div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'edad', 'error')} required">
 	<label for="edad">
@@ -65,3 +64,11 @@
 
 </div>
 
+<g:if test="${session.user?.isAdmin}">
+<div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'isAdmin', 'error')} required">
+	<label for="edad"> El usuario es administrador de la página
+		<span class="required-indicator">*</span>
+	</label>
+	<g:checkBox name="isAdmin" value="${personaInstance?.isAdmin}"/>
+</div>
+</g:if>
