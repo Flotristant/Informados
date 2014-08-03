@@ -28,8 +28,8 @@
 			</ul>
 			</g:hasErrors>
 			<g:form url="[resource:personaInstance, action:'crearNuevaCuenta']" >
-				<fieldset class="form">
-					<g:render template="form"/>
+				<fieldset class="register_form">
+					<g:render template="register_form"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="registrar" class="registrar" value="${message(code: 'deafult.button.registrar.label', default: 'Registrarme!')}" />

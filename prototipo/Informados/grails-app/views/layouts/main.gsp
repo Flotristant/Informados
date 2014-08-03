@@ -40,6 +40,14 @@
 		</fieldset></div>
 		<div class="header" id="logo" role="banner"><img src="${resource(dir: 'images', file: 'informados_logo_3.png')}" alt="Informados"/></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+		<div class="nav" role="navigation">
+			<ul>
+				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<g:if test="${session.user}">
+					<li><g:link class="show" action="show" controller="persona" id="${session.user?.id}">Perfil</g:link></li>
+				</g:if>
+			</ul>
+		</div>
 		<g:layoutBody/>
 		<r:layoutResources />
 		<div class="footer" role="contentinfo"></div>

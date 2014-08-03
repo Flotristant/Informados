@@ -35,15 +35,18 @@ class PersonaController {
 			flash.message = "Hello ${user.userName}!"
 			if (user.isAdmin) {
 				createUsuarioAdministradorAndShow(user, flash, params);
+				redirect(uri: "/")
 				return
 			}
 			if(user.suscripcion == "Profesional") {
-				redirect(controller:"persona", action:"show", id:user.id)
+				createUsuarioProfesionalAndShow(user, flash, params)
 			} else if(user.suscripcion == "Estudiante") {
-				redirect(controller:"persona", action:"show", id:user.id)
+				createUsuarioEstudianteAndShow(user, flash, params)
 			} else{
 				createPersonaFreeAndShow(user, flash, params)
 			}
+			redirect(uri: "/")
+			//<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 		}else{
 			showErrorMessage(flash, params)
 		}
@@ -57,7 +60,8 @@ class PersonaController {
 				showErrorMessage(flash, params)
 			}
 		}
-		redirect(controller:"usuarioFree", action:"show", id:usuarioFree.id)
+		return
+		//redirect(controller:"usuarioFree", action:"show", id:usuarioFree.id)
 	}
 	
 	private createUsuarioAdministradorAndShow(Persona user, Map flash, Map params) {
@@ -68,7 +72,32 @@ class PersonaController {
 				showErrorMessage(flash, params)
 			}
 		}
-		redirect(controller:"usuarioAdministrador", action:"show", id:usuarioAdministrador.id)
+		return
+		//redirect(controller:"usuarioAdministrador", action:"show", id:usuarioAdministrador.id)
+	}
+	
+	private createUsuarioEstudianteAndShow(Persona user, Map flash, Map params) {
+		UsuarioEstudiante usuarioEstudiante = UsuarioEstudiante.findOrCreateByPersona(user)
+		if(usuarioEstudiante.id == null) {
+			usuarioEstudiante.save()
+			if(usuarioEstudiante.hasErrors()) {
+				showErrorMessage(flash, params)
+			}
+		}
+		return
+//		redirect(controller:"usuarioEstudiante", action:"show", id:usuarioEstudiante.id)
+	}
+	
+	private createUsuarioProfesionalAndShow(Persona user, Map flash, Map params) {
+		UsuarioProfesional usuarioProfesional = UsuarioProfesional.findOrCreateByPersona(user)
+		if(usuarioProfesional.id == null) {
+			usuarioProfesional.save()
+			if(usuarioProfesional.hasErrors()) {
+				showErrorMessage(flash, params)
+			}
+		}
+		return
+//		redirect(controller:"usuarioProfesional", action:"show", id:usuarioProfesional.id)
 	}
 
 	private showErrorMessage(Map flash, Map params) {
@@ -104,6 +133,7 @@ class PersonaController {
 		usuarioInstance.save flush:true
 		if(usuarioInstance.hasErrors()){
 			respond usuarioInstance.errors, view:'registro'
+			return
 		}
 
 		if(usuarioInstance.isAdmin) {

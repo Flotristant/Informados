@@ -1,15 +1,42 @@
 package informados
 
+import grails.transaction.Transactional;
+
+
 class Persona {
+	//static transients = [ "passwordConfirmation" ]
+
+	static constraints = {
+		nombre blank:false
+		apellido blank:false
+		userName blank:false
+		password size: 5..15, blank: false, password:true, validator: {password, obj ->	
+			def password2 = obj.passwordConfirmation
+			password2 == password ? true : ['the passwords don\'t match']
+			}
+		email email: true, blank: false
+		suscripcion inList: ["Free", "Estudiante", "Profesional"]
+				isLoggedOn nulleable:true
+				isAdmin nulleable:true
+				
+	}
+	
+	static mapping = {
+		isLoggedOn defaultValue: false
+		isAdmin defaultValue: false
+	}
+
 	String nombre
 	String apellido
 	String edad
 	String email
 	String userName
 	String password
+	String passwordConfirmation
 	String suscripcion
-	Boolean isLoggedOn
-	Boolean isAdmin
+	Boolean isLoggedOn = false
+	Boolean isAdmin = false
+	
 	
 	public Persona (String nombre, String apellido, String email, String userName, String password, String suscripcion, Boolean isLoggedOn = false, Boolean isAdmin = false) {
 		this.nombre = nombre
@@ -22,21 +49,6 @@ class Persona {
 		this.isAdmin = isAdmin == null? false : isAdmin
 	}
 	
-	static constraints = {
-		nombre blank:false
-		apellido blank:false
-		userName blank:false
-		password size: 5..15, blank: false, password:true
-		email email: true, blank: false
-		suscripcion inList: ["Free", "Estudiante", "Profesional"]
-		isLoggedOn nulleable:true
-		isAdmin nulleable:true
-	}
-	
-	static mapping = {
-		isLoggedOn defaultValue: false
-		isAdmin defaultValue: false
-	 }
 	
 	public Boolean isAdmin() {
 		return isAdmin
