@@ -1,4 +1,4 @@
-package informados
+package informados.usuario
 
 import grails.transaction.Transactional;
 

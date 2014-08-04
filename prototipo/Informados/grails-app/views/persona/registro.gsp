@@ -3,18 +3,10 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'persona.label', default: 'Persona')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title>Registrate!</title>
 	</head>
 	<body>
 		<a href="#create-persona" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<g:if test="${personaInstance?.isAdmin}">
-					<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				</g:if>
-			</ul>
-		</div>
 		<div id="create-persona" class="content scaffold-create" role="main">
 			<h1><g:message code="default.registrar.label"/></h1>
 			<g:if test="${flash.message}">

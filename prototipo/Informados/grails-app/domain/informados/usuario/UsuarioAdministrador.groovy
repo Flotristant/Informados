@@ -1,4 +1,4 @@
-package informados
+package informados.usuario
 
 class UsuarioAdministrador {
 	Persona persona

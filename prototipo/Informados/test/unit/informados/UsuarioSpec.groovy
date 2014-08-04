@@ -1,5 +1,6 @@
 package informados
 
+import informados.usuario.Persona;
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 

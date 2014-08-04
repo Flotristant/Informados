@@ -3,6 +3,11 @@ package informados
 
 
 import static org.springframework.http.HttpStatus.*
+import informados.usuario.Persona;
+import informados.usuario.UsuarioAdministrador;
+import informados.usuario.UsuarioEstudiante;
+import informados.usuario.UsuarioFree;
+import informados.usuario.UsuarioProfesional;
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
