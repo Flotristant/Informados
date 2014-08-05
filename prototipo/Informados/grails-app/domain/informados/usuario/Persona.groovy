@@ -4,7 +4,6 @@ import grails.transaction.Transactional;
 
 
 class Persona {
-	//static transients = [ "passwordConfirmation" ]
 
 	static constraints = {
 		nombre blank:false
