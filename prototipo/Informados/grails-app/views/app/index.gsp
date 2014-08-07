@@ -1,6 +1,4 @@
-<div class="page-header">
-	<h1>Informados en <small>Facebook.com</small></h1>
-</div>
+<div class="page-header" id="logo" role="banner"><img src="/Informados/static/images/informados_logo_3.png" alt="Informados"/></div>
 <div class="row">
 	<div class="span12">
 		<g:if test="${!facebookContext.app.id}">
@@ -16,19 +14,14 @@
 			</facebook:initJS>
 			
 			<g:if test="${!facebookContext.authenticated}">
-				<h2 class="tab">Authentication</h2>
 				<p>
-					Facebook JavaScript SDK: <facebook:loginLink appPermissions="${facebookContext.app.permissions}" elementClass="large primary btn">Login</facebook:loginLink>
+				
 				</p>
 			</g:if>
 			<g:else>
 				<h2 class="tab">Your data</h2>
-				<h3>Your profile pic + name</h3>
-				<p>
-					<img src="https://graph.facebook.com/${user.id}/picture">
-					${user.name}
-				</p>
-				<h3>Your friends</h3>
+				<h3>Foto de Perfil<img src="https://graph.facebook.com/${user.id}/picture"> nombre:  ${user.name}</h3>
+				<h3>Amigos</h3>
 				<p>
 					<g:each in="${userFriends}" var="friend">
 						<img src="https://graph.facebook.com/${friend.id}/picture">
@@ -37,23 +30,22 @@
 			</g:else>
 			<p>&nbsp;</p>
 		</g:else>
-		<h2 class="tab">Public data</h2>
-		<h3>Profile pic + name</h3>
-		<p>
-			<img src="https://graph.facebook.com/benorama/picture">
-			${benorama?.name}
-		</p>
-        <p>&nbsp;</p>
-        <h2 class="tab">Facebook Dialogs</h2>
+		<h2 class="tab">Datos usuario</h2>
+		<h3><img src="https://graph.facebook.com/benorama/picture"></h3>
+		<h3>Bienvenido ${benorama?.name}!</h3>
+	    <p>&nbsp;</p>
+        <h2 class="tab">Opciones:</h2>
         <script type="text/javascript">
             function addToPage_callback(response) {alert(response && response.tabs_added.length + ' app added')}
             function invite_callback(response) {console.log(response)}
             function publish_callback(response) {if (response && response.success) alert('Published successfully')}
             function send_callback(response) {if (response && response.success) alert('Sent successfully')}
         </script>
-        <facebook:addToPageLink callback="addToPage_callback" elementClass="btn">Add to page</facebook:addToPageLink>
-        <facebook:inviteLink callback="invite_callback" elementClass="btn" message="Check this app!">Invite</facebook:inviteLink>
-        <facebook:publishLink callback="publish_callback" elementClass="btn">Publish</facebook:publishLink>
-        <facebook:sendLink callback="send_callback" elementClass="btn" link="http://www.google.com" to="594317994">Send a link to a friend</facebook:sendLink>
+        <facebook:addToPageLink callback="addToPage_callback" elementClass="btn">Compartir Noticia con amigos</facebook:addToPageLink><br>
+        <facebook:inviteLink callback="invite_callback" elementClass="btn" message="Check this app!">Invitar a Informados en Facebook</facebook:inviteLink><br>
+        <facebook:publishLink callback="publish_callback" elementClass="btn">Publicar una noticia</facebook:publishLink><br>
+        <facebook:sendLink callback="send_callback" elementClass="btn" link="http://www.google.com" to="594317994">Enviar link noticia a un amigo</facebook:sendLink><br>
+        <a href="http://localhost:8080/Informados/">Volver a Inicio</a>
+        
     </div>
 </div>

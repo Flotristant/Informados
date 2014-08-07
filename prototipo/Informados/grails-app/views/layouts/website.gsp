@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
-	<title><g:layoutTitle default="Facebook Grails SDK Website Example" /></title>
+	<title><g:layoutTitle default="Informados en Facebook" /></title>
 	<g:layoutHead />
     <asset:javascript src="application.js"/>
     <asset:stylesheet href="website.css"/>
@@ -15,7 +15,7 @@
 	<div class="topbar">
 		<div class="fill">
 			<div class="container">
-				<a class="brand" href="#">Facebook Grails SDK</a>
+				<a class="brand" href="#">Facebook Informados</a>
 			</div>
 		</div>
 	</div>
