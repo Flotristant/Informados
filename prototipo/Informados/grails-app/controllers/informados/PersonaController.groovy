@@ -3,6 +3,11 @@ package informados
 
 
 import static org.springframework.http.HttpStatus.*
+import informados.usuario.Persona;
+import informados.usuario.UsuarioAdministrador;
+import informados.usuario.UsuarioEstudiante;
+import informados.usuario.UsuarioFree;
+import informados.usuario.UsuarioProfesional;
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -33,18 +38,6 @@ class PersonaController {
 			}
 			session.user = user
 			flash.message = "Hello ${user.userName}!"
-			if (user.isAdmin) {
-				createUsuarioAdministradorAndShow(user, flash, params);
-				redirect(uri: "/")
-				return
-			}
-			if(user.suscripcion == "Profesional") {
-				createUsuarioProfesionalAndShow(user, flash, params)
-			} else if(user.suscripcion == "Estudiante") {
-				createUsuarioEstudianteAndShow(user, flash, params)
-			} else{
-				createPersonaFreeAndShow(user, flash, params)
-			}
 			redirect(uri: "/")
 			//<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 		}else{
@@ -53,6 +46,11 @@ class PersonaController {
 	}
 
 	private createPersonaFreeAndShow(Persona user, Map flash, Map params) {
+		findOrCreatePersonaFree(user, flash, params)
+		redirect(controller:"usuarioFree", action:"show", id:usuarioFree.id)
+	}
+
+	private findOrCreatePersonaFree(Persona user, Map flash, Map params) {
 		UsuarioFree usuarioFree = UsuarioFree.findOrCreateByPersona(user)
 		if(usuarioFree.id == null) {
 			usuarioFree.save()
@@ -61,10 +59,14 @@ class PersonaController {
 			}
 		}
 		return
-		//redirect(controller:"usuarioFree", action:"show", id:usuarioFree.id)
 	}
 	
 	private createUsuarioAdministradorAndShow(Persona user, Map flash, Map params) {
+		UsuarioAdministrador usuarioAdministrador = findOnCreateUsuarioAdinistrador(user, flash, params)
+		redirect(controller:"usuarioAdministrador", action:"show", id:usuarioAdministrador.id)
+	}
+
+	private UsuarioAdministrador findOnCreateUsuarioAdinistrador(Persona user, Map flash, Map params) {
 		UsuarioAdministrador usuarioAdministrador = UsuarioAdministrador.findOrCreateByPersona(user)
 		if(usuarioAdministrador.id == null) {
 			usuarioAdministrador.save()
@@ -72,11 +74,15 @@ class PersonaController {
 				showErrorMessage(flash, params)
 			}
 		}
-		return
-		//redirect(controller:"usuarioAdministrador", action:"show", id:usuarioAdministrador.id)
+		return usuarioAdministrador
 	}
 	
 	private createUsuarioEstudianteAndShow(Persona user, Map flash, Map params) {
+		UsuarioEstudiante usuarioEstudiante = findOrCreateUsuarioEstudiante(user, flash, params)
+		redirect(controller:"usuarioEstudiante", action:"show", id:usuarioEstudiante.id)
+	}
+
+	private UsuarioEstudiante findOrCreateUsuarioEstudiante(Persona user, Map flash, Map params) {
 		UsuarioEstudiante usuarioEstudiante = UsuarioEstudiante.findOrCreateByPersona(user)
 		if(usuarioEstudiante.id == null) {
 			usuarioEstudiante.save()
@@ -84,11 +90,15 @@ class PersonaController {
 				showErrorMessage(flash, params)
 			}
 		}
-		return
-//		redirect(controller:"usuarioEstudiante", action:"show", id:usuarioEstudiante.id)
+		return usuarioEstudiante
 	}
 	
 	private createUsuarioProfesionalAndShow(Persona user, Map flash, Map params) {
+		UsuarioProfesional usuarioProfesional = findOrCreateUsuarioProfesional(user, flash, params)
+		redirect(controller:"usuarioProfesional", action:"show", id:usuarioProfesional.id)
+	}
+
+	private UsuarioProfesional findOrCreateUsuarioProfesional(Persona user, Map flash, Map params) {
 		UsuarioProfesional usuarioProfesional = UsuarioProfesional.findOrCreateByPersona(user)
 		if(usuarioProfesional.id == null) {
 			usuarioProfesional.save()
@@ -96,8 +106,7 @@ class PersonaController {
 				showErrorMessage(flash, params)
 			}
 		}
-		return
-//		redirect(controller:"usuarioProfesional", action:"show", id:usuarioProfesional.id)
+		return usuarioProfesional
 	}
 
 	private showErrorMessage(Map flash, Map params) {
@@ -112,8 +121,19 @@ class PersonaController {
 	}
 
 	def show(Persona usuarioInstance) {
-		
-		respond usuarioInstance
+		def user =	usuarioInstance
+		if (user.isAdmin) {
+			createUsuarioAdministradorAndShow(user, flash, params);
+			return
+		}
+		if(user.suscripcion == "Profesional") {
+			createUsuarioProfesionalAndShow(user, flash, params)
+		} else if(user.suscripcion == "Estudiante") {
+			createUsuarioEstudianteAndShow(user, flash, params)
+		} else{
+			createPersonaFreeAndShow(user, flash, params)
+		}
+		return
 	}
 
 	def create() {

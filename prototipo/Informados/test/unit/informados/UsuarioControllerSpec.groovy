@@ -2,6 +2,7 @@ package informados
 
 
 
+import informados.usuario.Persona;
 import grails.test.mixin.*
 import spock.lang.*
 

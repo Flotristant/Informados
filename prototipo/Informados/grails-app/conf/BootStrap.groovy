@@ -1,4 +1,4 @@
-import informados.Persona
+import informados.usuario.Persona;
 
 class BootStrap {
 
