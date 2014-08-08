@@ -1,3 +1,6 @@
+import informados.noticia.Diario
+import informados.noticia.Noticia
+import informados.noticia.Seccion
 import informados.usuario.Persona;
 
 class BootStrap {
@@ -28,6 +31,29 @@ class BootStrap {
 		if(admin.hasErrors()){
 			println admin.errors
 		}
+		
+		
+		def diario = new Diario(nombre:"Pagina/12")
+		diario.save()
+		if(diario.hasErrors()) {
+			println diario.errors
+		}
+
+		def seccion = new Seccion(nombre:"Politica")
+		seccion.diario = diario
+		seccion.save()
+		if(seccion.hasErrors()) {
+			println seccion.errors
+		}
+		def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss")
+		noticia.seccion = seccion
+
+		noticia.save()
+		if(noticia.hasErrors()){
+			println noticia.errors
+		}
+
+		
 
 		def destroy = {
 		}

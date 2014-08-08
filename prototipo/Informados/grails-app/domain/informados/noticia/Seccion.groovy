@@ -1,7 +1,7 @@
 package informados.noticia
 
 class Seccion {
-	static hasMany = [seccines:Noticia]
+	static hasMany = [noticias:Noticia]
 	String nombre
 	
 	static belongsTo = [diario:Diario]

@@ -47,3 +47,11 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: noticiaInstance, field: 'contenido', 'error')} required">
+	<label for="contenido">
+		contenido
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="contenido" required="" value="${noticiaInstance?.contenido}"/>
+
+</div>

@@ -14,7 +14,7 @@ class NoticiaController {
         params.max = Math.min(max ?: 10, 100)
         respond Noticia.list(params), model:[noticiaInstanceCount: Noticia.count()]
     }
-
+	
     def show(Noticia noticiaInstance) {
         respond noticiaInstance
     }
@@ -22,6 +22,12 @@ class NoticiaController {
     def create() {
         respond new Noticia(params)
     }
+	
+	def buscarNoticia(String keywords, Integer max) {
+		params.max = Math.min(max ?: 10, 100)
+		List<Noticia> noticias = Noticia.findAllByContenidoLike("%"+params.keywords+"%")
+		respond noticias.asList()
+	}
 
     @Transactional
     def save(Noticia noticiaInstance) {

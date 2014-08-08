@@ -20,14 +20,12 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: seccionInstance, field: 'seccines', 'error')} ">
-	<label for="seccines">
-		<g:message code="seccion.seccines.label" default="Seccines" />
-		
-	</label>
-	
+<div class="fieldcontain ${hasErrors(bean: seccionInstance, field: 'noticias', 'error')} ">
+	<label for="noticias">
+		noticias		
+	</label>	
 <ul class="one-to-many">
-<g:each in="${seccionInstance?.seccines?}" var="s">
+<g:each in="${seccionInstance?.noticias?}" var="s">
     <li><g:link controller="noticia" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">
