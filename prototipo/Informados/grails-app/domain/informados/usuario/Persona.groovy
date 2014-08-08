@@ -9,7 +9,7 @@ class Persona {
 		nombre blank:false
 		apellido blank:false
 		userName blank:false
-		password size: 5..15, blank: false, password:true, validator: {password, obj ->	
+		password size: 5..15, blank: false, password:true , validator: {password, obj ->	
 			def password2 = obj.passwordConfirmation
 			password2 == password ? true : ['the passwords don\'t match']
 			}

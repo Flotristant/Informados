@@ -177,18 +177,27 @@ class PersonaController {
 				usuarioFree.save flush:true
 				if(usuarioFree.hasErrors()){
 					respond usuarioInstance.errors, view:'registro'
+				} else {
+					redirect(action:"login")
 				}
-				redirect(action:"login")
 				break;
 			case "Estudiante":
 				UsuarioEstudiante usuarioEstudiante = new UsuarioEstudiante(usuarioInstance)
 				usuarioEstudiante.save flush:true
-				redirect(action:"login")
+				if(usuarioEstudiante.hasErrors()){
+					respond usuarioEstudiante.errors, view:'registro'
+				} else {
+					redirect(action:"login")
+				}
 				break;
 			case "Profesional":
 				UsuarioProfesional usuarioProfesional = new UsuarioProfesional(usuarioInstance)
 				usuarioProfesional.save flush:true
-				redirect(action:"login")
+				if(usuarioProfesional.hasErrors()){
+					respond usuarioProfesional.errors, view:'registro'
+				} else {
+					redirect(action:"login")
+				}
 				break;
 		}		
 	}

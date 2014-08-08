@@ -19,7 +19,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:personaInstance, action:'crearNuevaCuenta']" >
+			<g:form url="[resource:personaInstance, action:'crearNuevaCuenta', controller:'persona']" >
 				<fieldset class="register_form">
 					<g:render template="register_form"/>
 				</fieldset>
