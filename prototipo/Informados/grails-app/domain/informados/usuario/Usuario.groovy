@@ -1,7 +1,12 @@
 package informados.usuario
 
-class Usuario {
-	Integer cantidadDiarios
+public abstract class Usuario {
+	Persona persona
+	Preferencias preferencias
+	
+	public abstract Integer getCantidadMaximaDiarios();
 	
 
+    static constraints = {
+    }
 }

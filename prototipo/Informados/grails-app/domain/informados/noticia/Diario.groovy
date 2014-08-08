@@ -2,7 +2,7 @@ package informados.noticia
 
 class Diario {
 	String nombre
-	static hasMany = [seccines:Seccion]
+	static hasMany = [noticias:Noticia]
 
     static constraints = {
 		nombre blank:false

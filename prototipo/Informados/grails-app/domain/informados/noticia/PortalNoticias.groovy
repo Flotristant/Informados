@@ -12,9 +12,6 @@ class PortalNoticias {
 		persona nulleable:false, blank:false
     }
 	
-	public Integer getNoticiasCantMax() {
-		
-	}
-	
+
 	
 }

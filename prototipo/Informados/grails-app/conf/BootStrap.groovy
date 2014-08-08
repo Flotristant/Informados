@@ -39,20 +39,48 @@ class BootStrap {
 			println diario.errors
 		}
 
-		def seccion = new Seccion(nombre:"Politica")
-		seccion.diario = diario
+		def seccion = new Seccion(nombre:"POLITICA")
 		seccion.save()
 		if(seccion.hasErrors()) {
 			println seccion.errors
 		}
-		def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss")
+		
+		def seccionSociedad = new Seccion(nombre:"SOCIEDAD")
+		seccionSociedad.save()
+		if(seccionSociedad.hasErrors()) {
+			println seccionSociedad.errors
+		}
+		
+		def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:25)
 		noticia.seccion = seccion
-
+		noticia.diario=diario
 		noticia.save()
 		if(noticia.hasErrors()){
 			println noticia.errors
 		}
 
+		def noticia2 = new Noticia(titulo:"mi noticia",contenido:"mi contenido de sociedades", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:1)
+		noticia2.seccion = seccionSociedad
+		noticia2.diario=diario
+		noticia2.save()
+		if(noticia2.hasErrors()){
+			println noticia.errors
+		}
+		
+		def noticia3 = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:150)
+		noticia3.seccion = seccion
+		noticia3.diario=diario
+		noticia3.save()
+		if(noticia3.hasErrors()){
+			println noticia.errors
+		}
+		
+		diario.noticias = [noticia, noticia2, noticia3]
+		diario.save()
+		if(diario.hasErrors()) {
+			println diario.errors
+		}
+		
 		
 
 		def destroy = {

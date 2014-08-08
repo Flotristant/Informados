@@ -46,7 +46,7 @@ class PersonaController {
 	}
 
 	private createPersonaFreeAndShow(Persona user, Map flash, Map params) {
-		findOrCreatePersonaFree(user, flash, params)
+		UsuarioFree usuarioFree= findOrCreatePersonaFree(user, flash, params)
 		redirect(controller:"usuarioFree", action:"show", id:usuarioFree.id)
 	}
 
@@ -56,22 +56,24 @@ class PersonaController {
 			usuarioFree.save()
 			if(usuarioFree.hasErrors()) {
 				showErrorMessage(flash, params)
+				return
 			}
 		}
-		return
+		return usuarioFree
 	}
 	
 	private createUsuarioAdministradorAndShow(Persona user, Map flash, Map params) {
-		UsuarioAdministrador usuarioAdministrador = findOnCreateUsuarioAdinistrador(user, flash, params)
+		UsuarioAdministrador usuarioAdministrador = findOrCreateUsuarioAdinistrador(user, flash, params)
 		redirect(controller:"usuarioAdministrador", action:"show", id:usuarioAdministrador.id)
 	}
 
-	private UsuarioAdministrador findOnCreateUsuarioAdinistrador(Persona user, Map flash, Map params) {
+	private UsuarioAdministrador findOrCreateUsuarioAdinistrador(Persona user, Map flash, Map params) {
 		UsuarioAdministrador usuarioAdministrador = UsuarioAdministrador.findOrCreateByPersona(user)
 		if(usuarioAdministrador.id == null) {
 			usuarioAdministrador.save()
 			if(usuarioAdministrador.hasErrors()) {
 				showErrorMessage(flash, params)
+				return
 			}
 		}
 		return usuarioAdministrador
@@ -88,6 +90,7 @@ class PersonaController {
 			usuarioEstudiante.save()
 			if(usuarioEstudiante.hasErrors()) {
 				showErrorMessage(flash, params)
+				return
 			}
 		}
 		return usuarioEstudiante
@@ -104,6 +107,7 @@ class PersonaController {
 			usuarioProfesional.save()
 			if(usuarioProfesional.hasErrors()) {
 				showErrorMessage(flash, params)
+				return
 			}
 		}
 		return usuarioProfesional
@@ -121,6 +125,10 @@ class PersonaController {
 	}
 
 	def show(Persona usuarioInstance) {
+		respond usuarioInstance
+	}
+	
+	def showPerfil(Persona usuarioInstance) {
 		def user =	usuarioInstance
 		if (user.isAdmin) {
 			createUsuarioAdministradorAndShow(user, flash, params);

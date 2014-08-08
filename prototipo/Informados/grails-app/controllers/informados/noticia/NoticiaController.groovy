@@ -28,6 +28,11 @@ class NoticiaController {
 		List<Noticia> noticias = Noticia.findAllByContenidoLike("%"+params.keywords+"%")
 		respond noticias.asList()
 	}
+	
+	def showRankingNoticias() {
+		def noticias = Noticia.findAll("from Noticia order by puntos desc")
+		respond noticias.asList()
+	}
 
     @Transactional
     def save(Noticia noticiaInstance) {

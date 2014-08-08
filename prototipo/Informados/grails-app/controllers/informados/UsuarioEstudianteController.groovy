@@ -17,7 +17,7 @@ class UsuarioEstudianteController {
     }
 
     def show(UsuarioEstudiante usuarioEstudianteInstance) {
-        redirect (controller: "Persona", action: "show", id: usuarioEstudianteInstance.persona.id)
+		respond usuarioEstudianteInstance
     }
 
     def create() {

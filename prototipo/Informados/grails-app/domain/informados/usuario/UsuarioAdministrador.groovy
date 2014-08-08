@@ -1,7 +1,9 @@
 package informados.usuario
 
-class UsuarioAdministrador {
-	Persona persona
+import informados.noticia.Diario
+
+class UsuarioAdministrador extends Usuario {
+	public static final int CANTIDAD_MAXIMA_DIARIOS=-1
 	
 	public UsuarioAdministrador() {
 		
@@ -16,8 +18,16 @@ class UsuarioAdministrador {
 		return persona.toString()
 	}
 	
+	public Boolean agregarDiario(Diario diario) {
+		this.preferencias.diarios.add(diario)
+	}
+	
     static constraints = {
 		
+    }
+	@Override
+	public Integer getCantidadMaximaDiarios() {
+		return CANTIDAD_MAXIMA_DIARIOS
     }
-	
 }
+

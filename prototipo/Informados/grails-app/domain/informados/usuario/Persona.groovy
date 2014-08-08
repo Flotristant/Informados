@@ -4,6 +4,16 @@ import grails.transaction.Transactional;
 
 
 class Persona {
+	String nombre
+	String apellido
+	String edad
+	String email
+	String userName
+	String password
+	String passwordConfirmation
+	String suscripcion
+	Boolean isLoggedOn = false
+	Boolean isAdmin = false
 
 	static constraints = {
 		nombre blank:false
@@ -25,16 +35,6 @@ class Persona {
 		isAdmin defaultValue: false
 	}
 
-	String nombre
-	String apellido
-	String edad
-	String email
-	String userName
-	String password
-	String passwordConfirmation
-	String suscripcion
-	Boolean isLoggedOn = false
-	Boolean isAdmin = false
 	
 	
 	public Persona (String nombre, String apellido, String email, String userName, String password, String suscripcion, Boolean isLoggedOn = false, Boolean isAdmin = false) {

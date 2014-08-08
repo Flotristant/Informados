@@ -1,10 +1,13 @@
 package informados.usuario
 
+import informados.noticia.Diario;
+
 import org.springframework.aop.aspectj.RuntimeTestWalker.ThisInstanceOfResidueTestVisitor;
 
 class UsuarioFree {
-	private static CANTIDAD_DIARIOS_MAX=50
+	public static final int CANTIDAD_MAXIMA_DIARIOS=5
 	Persona persona
+	Preferencias preferencia
 	
 	public UsuarioFree(){
 		
@@ -12,6 +15,12 @@ class UsuarioFree {
 
 	public UsuarioFree(Persona persona) {
 		this.persona=persona;
+	}
+	
+	public Boolean agregarDiario(Diario diario) {
+		if(CANTIDAD_MAXIMA_DIARIOS < preferencias.diarios.size()) {
+			preferencias.diarios.add(diario)
+		}
 	}
 	
     static constraints = {
