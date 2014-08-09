@@ -4,10 +4,8 @@ import informados.noticia.Diario;
 
 import org.springframework.aop.aspectj.RuntimeTestWalker.ThisInstanceOfResidueTestVisitor;
 
-class UsuarioFree {
+class UsuarioFree extends Usuario{
 	public static final int CANTIDAD_MAXIMA_DIARIOS=5
-	Persona persona
-	Preferencias preferencias
 	
 	public UsuarioFree(){
 		
@@ -21,6 +19,9 @@ class UsuarioFree {
 		if(CANTIDAD_MAXIMA_DIARIOS < preferencias.diarios.size()) {
 			preferencias.diarios.add(diario)
 		}
+	}
+	public Integer getCantidadMaximaDiarios() {
+		return CANTIDAD_MAXIMA_DIARIOS
 	}
 	
     static constraints = {

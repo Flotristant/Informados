@@ -2,10 +2,8 @@ package informados.usuario
 
 import informados.noticia.Diario
 
-class UsuarioEstudiante {
+class UsuarioEstudiante extends Usuario {
 	public static final int CANTIDAD_MAXIMA_DIARIOS=10
-	Persona persona
-	Preferencias preferencias
 	
 	public UsuarioEstudiante() {
 		
@@ -19,6 +17,10 @@ class UsuarioEstudiante {
 		if(CANTIDAD_MAXIMA_DIARIOS < preferencias.diarios.size()) {
 			preferencias.diarios.add(diario)
 		}
+	}
+	
+	public Integer getCantidadMaximaDiarios() {
+		return CANTIDAD_MAXIMA_DIARIOS
 	}
 	
     static constraints = {

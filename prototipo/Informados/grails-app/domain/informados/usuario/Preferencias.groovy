@@ -4,7 +4,8 @@ import informados.noticia.Diario
 import informados.noticia.Seccion
 
 class Preferencias {
-	static hasMany=[diarios:Diario, secciones:Seccion]
+	List<Integer> IdsDiarios
+	List<Integer> IdSecciones
 
     static constraints = {
 		

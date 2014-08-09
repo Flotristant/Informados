@@ -69,7 +69,7 @@ class PersonaController {
 	}
 
 	private UsuarioAdministrador findOrCreateUsuarioAdinistrador(Persona user, Map flash, Map params) {
-		UsuarioAdministrador usuarioAdministrador = (UsuarioAdministrador)Usuario.findOrCreateByPersona(user)
+		UsuarioAdministrador usuarioAdministrador = UsuarioAdministrador.findOrCreateByPersona(user)
 		if(usuarioAdministrador.id == null) {
 			usuarioAdministrador.save()
 			if(usuarioAdministrador.hasErrors()) {
