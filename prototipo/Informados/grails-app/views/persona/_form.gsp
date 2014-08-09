@@ -1,6 +1,4 @@
-<%@ page import="informados.Persona" %>
-
-
+<%@ page import="informados.usuario.Persona" %>
 
 <div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'nombre', 'error')} required">
 	<label for="nombre">

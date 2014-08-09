@@ -43,8 +43,8 @@ grails.views.default.codec = "html"
 
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
-// grails.controllers.defaultScope = 'singleton'
-grails.controllers.defaultScope = 'session'
+ grails.controllers.defaultScope = 'prototype'
+//grails.controllers.defaultScope = 'session'
 
 // GSP settings
 grails {

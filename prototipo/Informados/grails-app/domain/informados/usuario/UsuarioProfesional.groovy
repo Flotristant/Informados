@@ -5,7 +5,7 @@ import informados.noticia.Diario;
 class UsuarioProfesional {
 	public static final int CANTIDAD_MAXIMA_DIARIOS=50
 	Persona persona
-	Preferencias preferencias
+	Preferencias preferencias 
 	
 	public UsuarioProfesional(){
 		
@@ -22,5 +22,6 @@ class UsuarioProfesional {
 	}
 
     static constraints = {
+		preferencias nullable:true, blank:true
     }
 }

@@ -1,8 +1,5 @@
 package informados.usuario
 
-import grails.transaction.Transactional;
-
-
 class Persona {
 	String nombre
 	String apellido

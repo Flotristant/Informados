@@ -12,7 +12,7 @@ class Noticia {
     Integer hash
 
     static constraints = {
-		contenido blank: false
+		contenido blank: false, maxSize:500000
 		titulo blank:false
 		resumen blank:false, maxSize:500000
 		puntos blank:true

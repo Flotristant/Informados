@@ -90,7 +90,6 @@ class NewsCrawlerJob {
 				String RSS
 				Seccion seccion
 			 */
-
             def titulo = item.title.text()
 
             print "\t intentando inertar noticia con hashCode()="+titulo.hashCode()+":"+Noticia.findByHash(titulo.hashCode())

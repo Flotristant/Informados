@@ -8,6 +8,7 @@ import informados.usuario.UsuarioAdministrador;
 import informados.usuario.UsuarioEstudiante;
 import informados.usuario.UsuarioFree;
 import informados.usuario.UsuarioProfesional;
+import informados.usuario.Usuario;
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -68,7 +69,7 @@ class PersonaController {
 	}
 
 	private UsuarioAdministrador findOrCreateUsuarioAdinistrador(Persona user, Map flash, Map params) {
-		UsuarioAdministrador usuarioAdministrador = UsuarioAdministrador.findOrCreateByPersona(user)
+		UsuarioAdministrador usuarioAdministrador = (UsuarioAdministrador)Usuario.findOrCreateByPersona(user)
 		if(usuarioAdministrador.id == null) {
 			usuarioAdministrador.save()
 			if(usuarioAdministrador.hasErrors()) {
@@ -149,7 +150,8 @@ class PersonaController {
 	}
 
 	def registro() {
-		respond new Persona(params)
+		Persona persona = new Persona(params)
+		respond persona
 	}
 
 	def crearNuevaCuenta(Persona usuarioInstance) {

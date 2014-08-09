@@ -1,4 +1,4 @@
-<%@ page import="informados.UsuarioFree" %>
+<%@ page import="informados.usuario.usuario.UsuarioFree" %>
 
 
 
