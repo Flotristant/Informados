@@ -72,22 +72,27 @@
 			<li><a class="home" href="${createLink(uri: '/')}"><g:message
 						code="default.home.label" /></a></li>
 			<g:if test="${session.user}">
-				<li><g:link class="show" action="show" controller="persona"
+				<li><g:link class="show" action="showPerfil" controller="persona"
 						id="${session.user?.id}">Perfil</g:link></li>
+				<li><g:link class="show" action="showRankingNoticias"
+						controller="noticia" id="${session.user?.id}">Ver ranking de Noticias</g:link>
+				</li>
 			</g:if>
 		</ul>
 	</div>
 	<g:if test="${session.user}">
-	<div align="center">
-		<ul>
-			<li><g:form url="[action:'buscarNoticia', controller:'noticia']">
-					<fieldset class="form">
-						<g:textField name="keywords" value="${params[keywords]}" />
-						<g:submitButton name="buscar" class="save" value="Buscar Noticia" />
-					</fieldset>
-				</g:form></li>
-		</ul>
-	</div>
+		<div align="center">
+			<ul>
+				<li><g:form
+						url="[action:'buscarNoticia', controller:'noticia']">
+						<fieldset class="form">
+							<g:textField name="keywords" value="${params[keywords]}" />
+							<g:submitButton name="buscar" class="save" value="Buscar Noticia" />
+						</fieldset>
+					</g:form></li>
+
+			</ul>
+		</div>
 	</g:if>
 	<g:layoutBody />
 	<r:layoutResources />

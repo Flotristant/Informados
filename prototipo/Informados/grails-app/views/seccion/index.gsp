@@ -24,8 +24,6 @@
 			<thead>
 					<tr>
 					
-						<th><g:message code="seccion.diario.label" default="Diario" /></th>
-					
 						<g:sortableColumn property="nombre" title="${message(code: 'seccion.nombre.label', default: 'Nombre')}" />
 					
 					</tr>
@@ -34,9 +32,7 @@
 				<g:each in="${seccionInstanceList}" status="i" var="seccionInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${seccionInstance.id}">${fieldValue(bean: seccionInstance, field: "diario")}</g:link></td>
-					
-						<td>${fieldValue(bean: seccionInstance, field: "nombre")}</td>
+						<td><g:link action="show" id="${seccionInstance.id}">${fieldValue(bean: seccionInstance, field: "nombre")}</g:link></td>
 					
 					</tr>
 				</g:each>

@@ -43,7 +43,8 @@ grails.views.default.codec = "html"
 
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
-grails.controllers.defaultScope = 'prototype'
+// grails.controllers.defaultScope = 'singleton'
+grails.controllers.defaultScope = 'session'
 
 // GSP settings
 grails {
@@ -119,30 +120,3 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
-
-// FBootstrapp plugin configuration
-grails.plugins.fboostrapp.fixtaglib = true
-grails.controllers.defaultScope = 'prototype'
-grails.plugin.facebooksdk.customSelector = 'jQuery'
-
-// Facebook sdk plugin
-grails.plugin.facebooksdk = {
-	// For single app config
-	app = [
-			id: 304240539751746,
-			permissions: ['email'],
-			secret: '6b114e66530ee2c4509836b3f19b29aa'
-	]
-	// For multiple app config
-	/*appIdParamName = 'app_id'
-	apps = [
-			[
-				id: 0,
-				permissions: 'email',
-				secret: ''
-			],
-	]*/
-}
-grails.plugin.facebooksdk.appId = 304240539751746
-grails.plugin.facebooksdk.appPermissions = 'email'
-grails.plugin.facebooksdk.appSecret = '6b114e66530ee2c4509836b3f19b29aa'

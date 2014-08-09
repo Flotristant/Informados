@@ -1,7 +1,7 @@
 import informados.noticia.Diario
 import informados.noticia.Noticia
 import informados.noticia.Seccion
-import informados.usuario.Persona;
+import informados.usuario.Persona
 
 class BootStrap {
 

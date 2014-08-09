@@ -29,6 +29,15 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: noticiaInstance, field: 'diario', 'error')} required">
+	<label for="diario">
+		diario
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="diario" name="diario.id" from="${informados.noticia.Diario.list()}" optionKey="id" required="" value="${noticiaInstance?.diario?.id}" class="many-to-one"/>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: noticiaInstance, field: 'seccion', 'error')} required">
 	<label for="seccion">
 		<g:message code="noticia.seccion.label" default="Seccion" />
