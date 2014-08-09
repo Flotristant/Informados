@@ -22,5 +22,6 @@ class UsuarioEstudiante {
 	}
 	
     static constraints = {
+		preferencias nullable:true, blank:true
     }
 }

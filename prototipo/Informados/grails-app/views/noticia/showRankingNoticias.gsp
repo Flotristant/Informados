@@ -26,8 +26,7 @@
 				<tbody>
 				<g:each in="${noticiaInstanceList}" status="i" var="noticiaInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-						<td>${fieldValue(bean: noticiaInstance, field: "titulo")}</td>
-										
+						<td><g:link action="show" id="${noticiaInstance.id}">${fieldValue(bean: noticiaInstance, field: "titulo")}</g:link></td>										
 					
 						<td>${fieldValue(bean: noticiaInstance, field: "resumen")}</td>
 					

@@ -43,7 +43,7 @@
 			<g:else>
 				<div align="right">
 					<g:link controller="persona" action="login">
-						${message(code: 'deafult.button.login.label', default: 'Registrarme!')}
+						${message(code: 'deafult.button.login.label', default: 'Login')}
 					</g:link>
 				</div>
 				<div align="right">

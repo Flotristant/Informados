@@ -11,7 +11,7 @@
 			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 	<div id="create-persona" class="content scaffold-create" role="main">
 		<h1>
-			<g:message code="default.create.label" args="[entityName]" />
+			Login!
 		</h1>
 		<g:if test="${flash.message}">
 			<div class="message" role="status">

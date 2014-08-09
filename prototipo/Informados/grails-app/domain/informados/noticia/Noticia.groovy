@@ -11,7 +11,7 @@ class Noticia {
 	Integer puntos=0
 
     static constraints = {
-		contenido blank: false
+		contenido blank: false, maxSize:500000
 		titulo blank:false
 		resumen blank:false, maxSize:500000
 		puntos blank:true

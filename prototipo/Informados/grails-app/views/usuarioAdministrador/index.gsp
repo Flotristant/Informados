@@ -1,5 +1,5 @@
 
-<%@ page import="informados.UsuarioAdministrador" %>
+<%@ page import="informados.usuario.UsuarioAdministrador" %>
 <!DOCTYPE html>
 <html>
 	<head>

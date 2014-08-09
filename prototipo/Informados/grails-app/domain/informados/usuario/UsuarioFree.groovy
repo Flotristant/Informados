@@ -7,7 +7,7 @@ import org.springframework.aop.aspectj.RuntimeTestWalker.ThisInstanceOfResidueTe
 class UsuarioFree {
 	public static final int CANTIDAD_MAXIMA_DIARIOS=5
 	Persona persona
-	Preferencias preferencia
+	Preferencias preferencias
 	
 	public UsuarioFree(){
 		
@@ -24,6 +24,6 @@ class UsuarioFree {
 	}
 	
     static constraints = {
-		
+		preferencias nullable:true, blank:true
     }
 }

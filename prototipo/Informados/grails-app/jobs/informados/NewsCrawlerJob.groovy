@@ -87,7 +87,7 @@ class NewsCrawlerJob {
                                           resumen: item.description.text(),
                                           RSS: url,
 										  seccion:seccion,
-										  contenido: item.link.text(),
+										  contenido: item.description.text(),
 										  copete:"hola" )
 			noticia.diario=diario;
             noticia.save()
