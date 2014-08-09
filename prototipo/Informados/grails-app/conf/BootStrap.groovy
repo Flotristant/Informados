@@ -7,10 +7,10 @@ class BootStrap {
 
 	def init = { servletContext ->
 		/*def profesional = new Persona(userName:"profesional", password:"profesional", nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional")
-		profesional.save()
-		if(admin.hasErrors()){
-			println profesional.errors
-		}*/
+		 profesional.save()
+		 if(admin.hasErrors()){
+		 println profesional.errors
+		 }*/
 		def estudiante = new Persona(userName:"estudiante",password:"estudiante",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Estudiante", isLoggedOn:false, isAdmin:false, passwordConfirmation:"estudiante")
 		estudiante.save()
 		if(estudiante.hasErrors()){
@@ -31,28 +31,53 @@ class BootStrap {
 		if(admin.hasErrors()){
 			println admin.errors
 		}
-		
-		
-		def diario = new Diario(nombre:"Pagina/12")
+
+
+		Diario diario = new Diario(nombre:"infobae")
 		diario.save()
 		if(diario.hasErrors()) {
 			println diario.errors
 		}
 
-		def seccion = new Seccion(nombre:"POLITICA")
-		seccion.save()
-		if(seccion.hasErrors()) {
-			println seccion.errors
+
+		// ["POLITICA", "SOCIEDAD", "ESPECTACULOS", "DEPORTES", "ECONOMIA"]
+
+		def seccionPolitica = new Seccion(nombre:"POLITICA")
+		seccionPolitica.save()
+		if(seccionPolitica.hasErrors()) {
+			println seccionPolitica.errors
 		}
-		
+
 		def seccionSociedad = new Seccion(nombre:"SOCIEDAD")
 		seccionSociedad.save()
 		if(seccionSociedad.hasErrors()) {
 			println seccionSociedad.errors
 		}
-		
-		def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:25)
-		noticia.seccion = seccion
+
+		def seccionEconomia = new Seccion(nombre:"ECONOMIA")
+		seccionEconomia.save()
+		if(seccionEconomia.hasErrors()) {
+			println seccionEconomia.errors
+		}
+
+		def seccionDeportes= new Seccion(nombre:"DEPORTES")
+		seccionDeportes.save()
+		if(seccionDeportes.hasErrors()) {
+			println seccionDeportes.errors
+		}
+
+		def seccionEspectaculos = new Seccion(nombre:"ESPECTACULOS")
+		seccionEspectaculos.save()
+		if(seccionEspectaculos.hasErrors()) {
+			println seccionEspectaculos.errors
+		}
+
+//		diario.RSSUrls=new HashMap<Seccion, String>()
+		diario.RSSUrls.put(seccionPolitica.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/politica.xml")
+		diario.RSSUrls.put(seccionDeportes.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/deportes.xml")
+
+		/*def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:25)
+		noticia.seccion = seccionPolitica
 		noticia.diario=diario
 		noticia.save()
 		if(noticia.hasErrors()){
@@ -66,24 +91,23 @@ class BootStrap {
 		if(noticia2.hasErrors()){
 			println noticia.errors
 		}
-		
+
 		def noticia3 = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:150)
-		noticia3.seccion = seccion
+		noticia3.seccion = seccionPolitica
 		noticia3.diario=diario
 		noticia3.save()
 		if(noticia3.hasErrors()){
 			println noticia.errors
 		}
-		
-		diario.noticias = [noticia, noticia2, noticia3]
+
+		diario.noticias = [noticia, noticia2, noticia3]*/
 		diario.save()
 		if(diario.hasErrors()) {
 			println diario.errors
 		}
-		
-		
 
-		def destroy = {
-		}
+
+	}
+	def destroy = {
 	}
 }
