@@ -25,7 +25,7 @@ class NewsCrawlerJob {
 
     /* La tarea se ejecuta cada repeatInterval milisegundos.Se ejecuta repeatCount+1 veces*/
     static triggers = {
-        simple name: 'NewsCrawlerTrigger', startDelay: 0, repeatInterval: 5000, repeatCount: 0
+        simple name: 'NewsCrawlerTrigger', startDelay: 0, repeatInterval: 5000, repeatCount: 5
     }
 
     /*
@@ -35,6 +35,7 @@ class NewsCrawlerJob {
     def execute(){
         print "NewsCrawler run!"		
 		def diarios = Diario.findAll();
+
 		if(diarios== null) {
 			print "no se encontraron diarios!"
 			return
@@ -45,6 +46,8 @@ class NewsCrawlerJob {
 				readFeed(diario, seccion, diario.RSSUrls[seccionName])
 			}
 		}
+
+        print " \t Noticias insertadas:"+Noticia.findAll()
     }
 
     /*
@@ -55,10 +58,16 @@ class NewsCrawlerJob {
         print "\t leyendo rss de seccion "+seccion.nombre+":"+url
         
 		print url
-        def xmlFeed = new XmlParser().parse(url);
+        def xmlFeed = null
+        
+        try {
+            xmlFeed = new XmlParser().parse(url);
+        } catch (java.net.ConnectException ex) { 
+            print "\t error descargando feed "+url
+        }
+
         print "\t total de noticias:"+xmlFeed.channel.item.size()
-    
-	
+    	
         (0..< xmlFeed.channel.item.size()).each {
 
             def item = xmlFeed.channel.item.get(it);
@@ -81,20 +90,28 @@ class NewsCrawlerJob {
 				String RSS
 				Seccion seccion
 			 */
-				
-			
-            Noticia noticia = new Noticia(titulo: item.title.text(),
-                                          resumen: item.description.text(),
-                                          RSS: url,
-										  seccion:seccion,
-										  contenido: item.link.text(),
-										  copete:"hola" )
-			noticia.diario=diario;
-            noticia.save()
-			if(noticia.hasErrors()) {
-				println noticia.errors
-			}
+
+            def titulo = item.title.text()
+
+            print "\t intentando inertar noticia con hashCode()="+titulo.hashCode()+":"+Noticia.findByHash(titulo.hashCode())
+			if( Noticia.findByHash(titulo.hashCode()) == null) { 
+
+                Noticia noticia = new Noticia(titulo: item.title.text(),
+                                              resumen: item.description.text(),
+                                              RSS: url,
+                                              seccion:seccion,
+                                              contenido: item.link.text(),
+                                              copete:"hola",
+                                              hash: titulo.hashCode())
+                noticia.diario=diario;
+                noticia.save()
+                if(noticia.hasErrors()) {
+                    println noticia.errors
+                }
+            } else { 
+                print "\t ya existe noticia con hashCode()="+titulo.hashCode()
+            }
         }
     }
-
+    
 }

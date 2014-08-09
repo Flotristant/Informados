@@ -9,6 +9,7 @@ class Noticia {
 	static belongsTo = [diario:Diario]
 	Seccion seccion
 	Integer puntos=0
+    Integer hash
 
     static constraints = {
 		contenido blank: false
@@ -19,7 +20,7 @@ class Noticia {
     }
 	
 	public String toString() {
-		return titulo + "( " +copete+" )"
+		return titulo + "( " +copete+" )["+hash+"]"
 	}
 	
 	public void votar() {
