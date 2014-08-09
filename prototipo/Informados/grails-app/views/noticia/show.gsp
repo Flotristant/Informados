@@ -60,6 +60,14 @@
 					
 				</li>
 				</g:if>
+				<g:if test="${noticiaInstance?.contenido}">
+				<li class="fieldcontain">
+					<span id="titulo-label" class="property-label"><g:message code="noticia.titulo.label" default="Contenido" /></span>
+					
+						<span class="property-value" aria-labelledby="titulo-label"><g:fieldValue bean="${noticiaInstance}" field="contenido"/></span>
+					
+				</li>
+				</g:if>
 			
 			</ol>
 		</div>
