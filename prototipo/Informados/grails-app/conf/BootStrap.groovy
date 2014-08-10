@@ -38,14 +38,7 @@ class BootStrap {
 		}
 
 
-		Diario diario = new Diario(nombre:"infobae")
-		diario.save()
-		if(diario.hasErrors()) {
-			println diario.errors
-		}
-
-
-		// ["POLITICA", "SOCIEDAD", "ESPECTACULOS", "DEPORTES", "ECONOMIA"]
+		/* Inicializacion de secciones */
 
 		def seccionPolitica = new Seccion(nombre:"POLITICA")
 		seccionPolitica.save()
@@ -77,11 +70,38 @@ class BootStrap {
 			println seccionEspectaculos.errors
 		}
 
-//		diario.RSSUrls=new HashMap<Seccion, String>()
-		diario.RSSUrls.put(seccionPolitica.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/politica.xml")
-		diario.RSSUrls.put(seccionDeportes.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/deportes.xml")
+        /* Inicializacion de diarios */
 
-		def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:25)
+        /* infobae */
+		Diario infobae = new Diario(nombre:"infobae")
+		infobae.RSSUrls.put(seccionPolitica.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/politica.xml")
+		infobae.RSSUrls.put(seccionDeportes.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/deportes.xml")
+
+		infobae.save()
+		if(infobae.hasErrors()) {
+			println infobae.errors
+		}
+
+        /* la nacion */
+		Diario lanacion = new Diario(nombre:"lanacion")
+        lanacion.RSSUrls.put(seccionPolitica.nombre,  "http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=30")
+        lanacion.RSSUrls.put(seccionDeportes.nombre,  "http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=131")
+		lanacion.save()
+		if(lanacion.hasErrors()) {
+			println lanacion.errors
+		}
+
+        /* clarin */
+		Diario clarin = new Diario(nombre:"clarin")
+        clarin.RSSUrls.put(seccionPolitica.nombre, "http://www.clarin.com/rss/politica/")
+        clarin.RSSUrls.put(seccionDeportes.nombre, "http://www.clarin.com/rss/deportes/")
+		clarin.save()
+		if(clarin.hasErrors()) {
+			println clarin.errors
+		}
+
+
+		/*def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:25)
 		noticia.seccion = seccionPolitica
 		noticia.diario=diario
 		noticia.save()
@@ -120,10 +140,11 @@ class BootStrap {
 		}
 
 		diario.noticias = [noticia, noticia2, noticia3]
+        /*
 		diario.save()
 		if(diario.hasErrors()) {
 			println diario.errors
-		}
+            }*/
 		
 
 	}

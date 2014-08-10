@@ -14,6 +14,7 @@ class Noticia {
 	Date fecha = new Date()
 	String link
 	Integer puntos=0
+    Integer hash
 
     static constraints = {
 		contenido blank: false, maxSize:500000
@@ -25,7 +26,7 @@ class Noticia {
     }
 	
 	public String toString() {
-		return titulo + "( " +copete+" )"
+		return titulo + "( " +copete+" )["+hash+"]"
 	}
 	
 	public void votar(Usuario usuario) {
