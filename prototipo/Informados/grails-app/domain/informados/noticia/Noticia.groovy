@@ -3,7 +3,7 @@ package informados.noticia
 import informados.usuario.Usuario
 import ranking.Voto
 
-class Noticia {	
+class Noticia {
 	String titulo
 	String copete
 	String resumen
@@ -13,24 +13,38 @@ class Noticia {
 	Seccion seccion
 	Date fecha = new Date()
 	String link
-	Integer puntos=0
-    Integer hash
+	Integer hash
 
-    static constraints = {
+	static constraints = {
 		contenido blank: false, maxSize:500000
 		titulo blank:false
 		resumen blank:false, maxSize:500000
-		puntos blank:true
 		link blank:true, nullable:true
-		
-    }
+	}
+	
 	
 	public String toString() {
-		return titulo + "( " +copete+" )["+hash+"]"
+		return titulo + "["+hash+"]"
+	}
+
+	public String votar(Usuario usuario) {
+		List votos = Voto.findAllByUsuarioAndNoticia(usuario, this)
+		if(votos.empty) {
+			Voto voto = new Voto(usuario:usuario, noticia:this)
+			voto.save(flush:true)
+			if(voto.hasErrors()) {
+				return voto.errors
+			}
+			this.save(flus:true)
+			if(this.hasErrors()) {
+				return this.errors
+			}
+		} else {
+			return "Hey no puedes volver a votar la misma noticia!"
+		}
 	}
 	
-	public void votar(Usuario usuario) {
-		Voto voto = new Voto(usuario:usuario, noticia:this)
+	public Integer getPuntos() {
+		return Voto.findAllByNoticia(this).size()
 	}
-	
 }

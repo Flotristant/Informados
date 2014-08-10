@@ -16,7 +16,17 @@ class DiarioController {
     }
 
     def show(Diario diarioInstance) {
-        respond diarioInstance
+		Map<String, List<Noticia>> noticiasPorSeccion = new HashMap<Seccion, List<Noticia>>()
+		for(noticia in diarioInstance.noticias) {
+			def noticias_seccion = noticiasPorSeccion.getAt(noticia.seccion.nombre)
+			if(noticias_seccion == null) {
+				noticias_seccion = [noticia]
+				noticiasPorSeccion.putAt(noticia.seccion.nombre, noticias_seccion)
+			} else {
+				noticiasPorSeccion.getAt(noticia.seccion.nombre).add(noticia)
+			}
+		}		
+        respond diarioInstance, model:[noticiasPorSeccion: noticiasPorSeccion]
     }
 
     def create() {

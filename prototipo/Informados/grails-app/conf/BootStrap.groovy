@@ -9,11 +9,6 @@ import ranking.Voto
 class BootStrap {
 
 	def init = { servletContext ->
-		/*def profesional = new Persona(userName:"profesional", password:"profesional", nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional")
-		 profesional.save()
-		 if(admin.hasErrors()){
-		 println profesional.errors
-		 }*/
 		def estudiante = new Persona(userName:"estudiante",password:"estudiante",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Estudiante", isLoggedOn:false, isAdmin:false, passwordConfirmation:"estudiante")
 		estudiante.save()
 		if(estudiante.hasErrors()){
@@ -99,53 +94,6 @@ class BootStrap {
 		if(clarin.hasErrors()) {
 			println clarin.errors
 		}
-
-
-		/*def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:25)
-		noticia.seccion = seccionPolitica
-		noticia.diario=diario
-		noticia.save()
-		if(noticia.hasErrors()){
-			println noticia.errors
-		}
-
-		def noticia2 = new Noticia(titulo:"mi noticia",contenido:"mi contenido de sociedades", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:1)
-		noticia2.seccion = seccionSociedad
-		noticia2.diario=diario
-		noticia2.save()
-		if(noticia2.hasErrors()){
-			println noticia.errors
-		}
-
-		def noticia3 = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:150)
-		noticia3.seccion = seccionPolitica
-		noticia3.diario=diario
-		noticia3.save()
-		if(noticia3.hasErrors()){
-			println noticia.errors
-		}
-		
-		UsuarioFree usuarioFree = new UsuarioFree(persona:free)
-		usuarioFree.save()
-		if(usuarioFree.hasErrors()) {
-			println usuarioFree.errors
-		}
-		
-		Voto voto1 = new Voto();
-		voto1.noticia = noticia
-		voto1.usuario = usuarioFree
-		voto1.save()
-		if(voto1.hasErrors()) {
-			println voto1.errors
-		}
-
-		diario.noticias = [noticia, noticia2, noticia3]
-        /*
-		diario.save()
-		if(diario.hasErrors()) {
-			println diario.errors
-            }*/
-		
 
 	}
 	def destroy = {

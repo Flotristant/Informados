@@ -6,6 +6,8 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import ranking.Ranking
 import ranking.Voto
+import informados.usuario.Persona
+import informados.usuario.Usuario
 
 @Transactional(readOnly = true)
 class NoticiaController {
@@ -14,22 +16,26 @@ class NoticiaController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Noticia.list(params), model:[noticiaInstanceCount: Noticia.count()]
+        respond Noticia.list(params), model:[noticiaInstanceCount: Noticia.count(), diarioInstanceList: Diario.list()]
     }
 	
     def show(Noticia noticiaInstance) {
         respond noticiaInstance
     }
-
+	
     def create() {
         respond new Noticia(params)
     }
 	
-	def buscarNoticia(String keywords, Integer max) {
-		
+	def buscarNoticia(String keywords, Integer max) {		
 		params.max = Math.min(max ?: 10, 100)
 		List<Noticia> noticias = Noticia.findAllByContenidoLike("%"+params.keywords+"%")
 		respond noticias, model:[noticiaInstanceCount: noticias.size()]
+	}
+	
+	def indexNoticiasRelacionadas(Noticia noticiaInstance) {
+		def noticiasRelacionadas = Noticia.findAllByContenidoLike("%"+noticiaInstance.contenido+"%")
+		respond noticiasRelacionadas
 	}
 	
 	def showRankingNoticias(Integer max) {
@@ -41,14 +47,10 @@ class NoticiaController {
 	}
 	
 	def votar(Noticia noticiaInstance) {
-		Voto voto = new Voto()
-		voto.noticia = noticiaInstance
-		def users = Usuario.FindAllByPersona(session.user)
-		voto.usuario = users[0]
-		voto.save flush:true
-		if(voto.hasErrors()) {
-			flash.message=voto.errors
-		}
+		Persona persona = session.user
+		List<Usuario> usuarios = Usuario.findAllByPersona(persona)
+		flash.message = noticiaInstance.votar(usuarios[0])
+		redirect (action:"index")
 	}
 
     @Transactional

@@ -23,20 +23,15 @@
 		<table>
 			<thead>
 				<tr>
-
-					<g:sortableColumn property="RSS"
-						title="${message(code: 'noticia.RSS.label', default: 'RSS')}" />
-
-					<g:sortableColumn property="copete"
-						title="${message(code: 'noticia.copete.label', default: 'Copete')}" />
-
-					<g:sortableColumn property="resumen"
-						title="${message(code: 'noticia.resumen.label', default: 'Resumen')}" />
-
 					<th><g:message code="noticia.seccion.label" default="Seccion" /></th>
 
 					<g:sortableColumn property="titulo"
 						title="${message(code: 'noticia.titulo.label', default: 'Titulo')}" />
+
+					<g:sortableColumn property="resumen"
+						title="${message(code: 'noticia.resumen.label', default: 'Resumen')}" />
+
+					<g:sortableColumn property="puntos" title="Likes" />
 
 				</tr>
 			</thead>
@@ -44,28 +39,24 @@
 				<g:each in="${noticiaInstanceList}" status="i" var="noticiaInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-						<td><g:link action="show" id="${noticiaInstance.id}">
-								${fieldValue(bean: noticiaInstance, field: "RSS")}
-							</g:link></td>
-
-						<td>
-							${fieldValue(bean: noticiaInstance, field: "copete")}
-						</td>
-
-						<td>
-							${raw(noticiaInstance.resumen)}
-						</td>
-
 						<td>
 							${fieldValue(bean: noticiaInstance, field: "seccion")}
 						</td>
-
 						<td>
 							${fieldValue(bean: noticiaInstance, field: "titulo")}
 						</td>
-
+						<td>
+							${raw(noticiaInstance.resumen)}
+						</td>
+						<td>
+							${fieldValue(bean: noticiaInstance, field: "puntos")}
+						</td>
 						<td><g:link action="votar" controller="noticia"
-								id="${noticiaInstance.id}">Like</g:link></td>
+								id="${noticiaInstance.id}">
+								<img
+									src="${resource(dir: 'images', file: 'FB-ThumbsUp_29.png')}"
+									alt="Like" />
+							</g:link></td>
 
 					</tr>
 				</g:each>

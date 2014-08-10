@@ -33,7 +33,7 @@
 					
 						<td>${fieldValue(bean: noticiaInstance, field: "seccion")}</td>			
 						
-						<td>${fieldValue(bean: noticiaInstance, field: "puntos")}</td>
+						<td>${noticiaInstance.getPuntos()}</td>
 						
 						<td><a href="${fieldValue(bean: noticiaInstance, field: "link")}">Ver Noticia</a></td>
 					

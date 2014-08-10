@@ -10,17 +10,6 @@ import informados.noticia.Diario;
 
 class NewsCrawlerJob {
 
-	/* feeds de los distintos diarios con sus secciones */
-	/*def feed_source = [clarin: 
-	 [politica: "http://www.clarin.com/rss/politica/",
-	 deportes: "http://www.clarin.com/rss/deportes/"],
-	 lanacion: 
-	 [politica: "http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=30",
-	 deportes: "http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=131"],
-	 infobae:
-	 [politica: "http://cdn01.am.infobae.com/adjuntos/163/rss/politica.xml",
-	 deportes: "http://cdn01.am.infobae.com/adjuntos/163/rss/deportes.xml"]]*/
-
 	/* La tarea se ejecuta cada repeatInterval milisegundos.Se ejecuta repeatCount+1 veces*/
 	static triggers = {
 		simple name: 'NewsCrawlerTrigger', startDelay: 0, repeatInterval: 5000, repeatCount: 5
@@ -34,18 +23,19 @@ class NewsCrawlerJob {
 		print "NewsCrawler run!"
 		def diarios = Diario.findAll();
 
-		if(diarios== null) {
+		if(diarios.empty) {
 			print "no se encontraron diarios!"
 			return
 		}
 		for(diario in diarios) {
+			print diario.toString()
 			for(seccionName in diario.RSSUrls.keySet()) {
 				Seccion seccion = Seccion.findByNombre(seccionName)
 				readFeed(diario, seccion, diario.RSSUrls[seccionName])
 			}
 		}
 
-		print " \t Noticias insertadas:"+Noticia.findAll()
+		//print " \t Noticias insertadas:"+Noticia.findAll()
 	}
 
 	/*
@@ -53,9 +43,12 @@ class NewsCrawlerJob {
 	 * gurda en la BD.
 	 **/
 	def readFeed(diario, seccion, url) {
-		print "\t leyendo rss de seccion "+seccion.nombre+":"+url
+		if(diario == null || seccion == null || url == null) {
+			return
+		}
+		//print "\t leyendo rss de seccion "+seccion.nombre+":"+url
 
-		print url
+		//print url
 		def xmlFeed = null
 
 		try {
@@ -64,7 +57,7 @@ class NewsCrawlerJob {
 			print "\t error descargando feed "+url
 		}
 
-		print "\t total de noticias:"+xmlFeed.channel.item.size()
+		print "\t total de noticias:"+xmlFeed.channel.item.size() 
 
 		(0..< xmlFeed.channel.item.size()).each {
 
@@ -91,22 +84,25 @@ class NewsCrawlerJob {
 			def titulo = item.title.text()
 
 			if( Noticia.findByHash(titulo.hashCode()) == null) {
+				
+				def resumen = item.description.text()?item.description.text():"la noticia no contiene resumen"
 
 				Noticia noticia = new Noticia(titulo: item.title.text(),
-				resumen: item.description.text(),
+				resumen: resumen,
 				RSS: url,
 				seccion:seccion,
-				contenido: item.description.text(),
-				copete:"hola" ,
-				link: item.link.text())
-
+				contenido: resumen,
+				copete:"copete default" ,
+				link: item.link.text(),
+				hash:titulo.hashCode())
+ 
 				noticia.diario=diario;
 				noticia.save()
 				if(noticia.hasErrors()) {
-					println noticia.errors
+					println noticia.errors 
 				}
 			} else {
-				print "\t ya existe noticia con hashCode()="+titulo.hashCode()
+				//print "\t ya existe noticia con hashCode()="+titulo.hashCode()
 			}
 		}
 	}
