@@ -27,6 +27,14 @@
 <r:layoutResources />
 </head>
 <body>
+	<g:if
+		test="${session.user == null || session.user?.puedeVerPublicidad() }">
+		<div class="publicidad-informados">
+			<a href="http://www.fi.uba.ar"><img
+				src="${resource(dir: 'images', file: 'banner-publicidad.png')}"
+				alt="Fiuba" /></a>
+		</div>
+	</g:if>
 	<div>
 		<fieldset class="buttons">
 			<g:if test="${session.user}">
@@ -93,6 +101,12 @@
 	</g:if>
 	<g:layoutBody />
 	<r:layoutResources />
-	<div class="footer" role="contentinfo"></div>
+	<g:if
+		test="${session.user == null || session.user?.puedeVerPublicidad() }">
+		<div class="publicidad-informados">
+			<a href="http://www.fi.uba.ar"><img
+				src="${resource(dir: 'images', file: 'fiubaLogo.png')}" alt="Fiuba" /></a>
+		</div>
+	</g:if>
 </body>
 </html>

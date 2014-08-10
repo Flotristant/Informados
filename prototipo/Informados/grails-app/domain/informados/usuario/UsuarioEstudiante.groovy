@@ -26,4 +26,8 @@ class UsuarioEstudiante extends Usuario {
     static constraints = {
 		preferencias nullable:true, blank:true
     }
+	
+	public Boolean puedeVerPublicidad() {
+		return false
+	}
 }

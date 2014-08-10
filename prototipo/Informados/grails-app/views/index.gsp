@@ -92,5 +92,7 @@ p {
 	<div id="page-body" role="main">
 		<h1>Bienvenido a Informados!</h1>
 	</div>
-	</body>
+	<div class="footer" role="contentinfo">
+	</div>
+</body>
 </html>

@@ -53,5 +53,16 @@ class Persona {
 	public String toString() {
 		return this.nombre+ " " + this.apellido+ " " + this.edad+ " " + this.email;
 	}
+	
+	public Boolean puedeVerPublicidad() {
+		def puedeVerPublicidad=true
+		List<Usuario> usuarios = Usuario.findAllByPersona(this)
+		for(usuario in usuarios) {
+			if(!usuario.puedeVerPublicidad()) {
+				puedeVerPublicidad= false
+			}
+		}
+		return puedeVerPublicidad
+	}
 
 }
