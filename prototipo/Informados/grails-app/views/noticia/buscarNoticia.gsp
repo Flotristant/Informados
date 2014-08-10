@@ -17,9 +17,6 @@
 			<table>
 			<thead>
 					<tr>
-					
-						<g:sortableColumn property="RSS" title="${message(code: 'noticia.RSS.label', default: 'RSS')}" />
-					
 						<g:sortableColumn property="copete" title="${message(code: 'noticia.copete.label', default: 'Copete')}" />
 					
 						<g:sortableColumn property="resumen" title="${message(code: 'noticia.resumen.label', default: 'Resumen')}" />
@@ -36,9 +33,7 @@
 					
 						<td><g:link action="show" id="${noticiaInstance.id}">${fieldValue(bean: noticiaInstance, field: "RSS")}</g:link></td>
 					
-						<td>${fieldValue(bean: noticiaInstance, field: "copete")}</td>
-					
-						<td>${fieldValue(bean: noticiaInstance, field: "resumen")}</td>
+						<td>${raw(noticiaInstance.resumen)}</td>
 					
 						<td>${fieldValue(bean: noticiaInstance, field: "seccion")}</td>
 					

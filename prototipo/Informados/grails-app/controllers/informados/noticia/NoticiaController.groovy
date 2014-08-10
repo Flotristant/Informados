@@ -4,6 +4,8 @@ package informados.noticia
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import ranking.Ranking
+import ranking.Voto
 
 @Transactional(readOnly = true)
 class NoticiaController {
@@ -24,14 +26,29 @@ class NoticiaController {
     }
 	
 	def buscarNoticia(String keywords, Integer max) {
+		
 		params.max = Math.min(max ?: 10, 100)
 		List<Noticia> noticias = Noticia.findAllByContenidoLike("%"+params.keywords+"%")
-		respond noticias.asList()
+		respond noticias, model:[noticiaInstanceCount: noticias.size()]
 	}
 	
-	def showRankingNoticias() {
-		def noticias = Noticia.findAll("from Noticia order by puntos desc")
-		respond noticias.asList()
+	def showRankingNoticias(Integer max) {
+		Ranking ranking = new Ranking();
+		params.max=Math.min(max ?: 10, 100)
+		List<Noticia> noticias = ranking.createRankingSemanal(params.max, params.offset)
+		//TODO: pasar la cantidad real de noticias encontradas, por ahora paso el total (noticias.size solo tiene el max pasado)
+		respond noticias, model:[noticiaInstanceCount: Noticia.count()]
+	}
+	
+	def votar(Noticia noticiaInstance) {
+		Voto voto = new Voto()
+		voto.noticia = noticiaInstance
+		def users = Usuario.FindAllByPersona(session.user)
+		voto.usuario = users[0]
+		voto.save flush:true
+		if(voto.hasErrors()) {
+			flash.message=voto.errors
+		}
 	}
 
     @Transactional

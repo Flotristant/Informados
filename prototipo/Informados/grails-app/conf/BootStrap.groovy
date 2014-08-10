@@ -2,6 +2,9 @@ import informados.noticia.Diario
 import informados.noticia.Noticia
 import informados.noticia.Seccion
 import informados.usuario.Persona
+import informados.usuario.UsuarioFree
+import ranking.Ranking
+import ranking.Voto
 
 class BootStrap {
 
@@ -26,6 +29,8 @@ class BootStrap {
 		if(free.hasErrors()){
 			println free.errors
 		}
+			
+		
 		def admin = new Persona(userName:"admin",password:"admin", passwordConfirmation:"admin",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional", isLoggedOn:false, isAdmin:true)
 		admin.save()
 		if(admin.hasErrors()){
@@ -76,7 +81,7 @@ class BootStrap {
 		diario.RSSUrls.put(seccionPolitica.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/politica.xml")
 		diario.RSSUrls.put(seccionDeportes.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/deportes.xml")
 
-		/*def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:25)
+		def noticia = new Noticia(titulo:"mi noticia",contenido:"mi contenido", resumen:"mi resumen", copete:"mi copete", RSS:"mi rss", puntos:25)
 		noticia.seccion = seccionPolitica
 		noticia.diario=diario
 		noticia.save()
@@ -99,13 +104,27 @@ class BootStrap {
 		if(noticia3.hasErrors()){
 			println noticia.errors
 		}
+		
+		UsuarioFree usuarioFree = new UsuarioFree(persona:free)
+		usuarioFree.save()
+		if(usuarioFree.hasErrors()) {
+			println usuarioFree.errors
+		}
+		
+		Voto voto1 = new Voto();
+		voto1.noticia = noticia
+		voto1.usuario = usuarioFree
+		voto1.save()
+		if(voto1.hasErrors()) {
+			println voto1.errors
+		}
 
-		diario.noticias = [noticia, noticia2, noticia3]*/
+		diario.noticias = [noticia, noticia2, noticia3]
 		diario.save()
 		if(diario.hasErrors()) {
 			println diario.errors
 		}
-
+		
 
 	}
 	def destroy = {

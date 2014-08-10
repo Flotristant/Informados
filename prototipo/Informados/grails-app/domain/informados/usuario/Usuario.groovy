@@ -4,8 +4,7 @@ public class Usuario {
 	Persona persona
 	Preferencias preferencias 
 	
-	public Integer getCantidadMaximaDiarios(){}
-	
+	public Integer getCantidadMaximaDiarios(){}	
 
     static constraints = {
 		preferencias nullable:true, blank:true

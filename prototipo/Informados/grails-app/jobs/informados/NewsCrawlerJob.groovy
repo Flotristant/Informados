@@ -25,7 +25,7 @@ class NewsCrawlerJob {
 
     /* La tarea se ejecuta cada repeatInterval milisegundos.Se ejecuta repeatCount+1 veces*/
     static triggers = {
-        simple name: 'NewsCrawlerTrigger', startDelay: 0, repeatInterval: 5000, repeatCount: 0
+        simple name: 'NewsCrawlerTrigger', startDelay: 20000, repeatInterval: 20000, repeatCount: 5
     }
 
     /*
@@ -62,7 +62,7 @@ class NewsCrawlerJob {
         (0..< xmlFeed.channel.item.size()).each {
 
             def item = xmlFeed.channel.item.get(it);
-            print "Creando noticia "+item.title.text()
+            //print "Creando noticia "+item.title.text()
 
             /*
              * Atributos de los items:
@@ -88,7 +88,9 @@ class NewsCrawlerJob {
                                           RSS: url,
 										  seccion:seccion,
 										  contenido: item.description.text(),
-										  copete:"hola" )
+										  copete:"hola" ,
+										  link: item.link.text())
+			
 			noticia.diario=diario;
             noticia.save()
 			if(noticia.hasErrors()) {

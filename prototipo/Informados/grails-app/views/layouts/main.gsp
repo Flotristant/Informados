@@ -75,7 +75,7 @@
 				<li><g:link class="show" action="showPerfil" controller="persona"
 						id="${session.user?.id}">Perfil</g:link></li>
 				<li><g:link class="show" action="showRankingNoticias"
-						controller="noticia" id="${session.user?.id}">Ver ranking de Noticias</g:link>
+						controller="noticia">Ver ranking de Noticias</g:link>
 				</li>
 			</g:if>
 		</ul>
