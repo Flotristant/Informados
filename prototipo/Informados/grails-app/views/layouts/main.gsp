@@ -84,7 +84,7 @@
 						controller="persona" id="${session.user?.id}">Perfil</g:link></li>
 				<li><g:link class="show" action="showRankingNoticias"
 						controller="noticia">Ver ranking de Noticias</g:link></li>
-				<li><g:link class="show" action="index" controller="diario">Mis Noticias</g:link>
+				<li><g:link class="show" action="indexByUsuario" controller="diario">Mis Noticias</g:link>
 				</li>
 			</g:if>
 		</ul>

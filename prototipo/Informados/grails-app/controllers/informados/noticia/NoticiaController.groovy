@@ -50,7 +50,7 @@ class NoticiaController {
 		Persona persona = session.user
 		List<Usuario> usuarios = Usuario.findAllByPersona(persona)
 		flash.message = noticiaInstance.votar(usuarios[0])
-		redirect (action:"index")
+		respond 
 	}
 
     @Transactional

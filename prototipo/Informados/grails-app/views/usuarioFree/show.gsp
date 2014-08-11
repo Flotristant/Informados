@@ -14,18 +14,17 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list usuarioFree">
+			<ul class="property-list usuarioFree">
 			
 				<g:if test="${usuarioFreeInstance?.persona}">
 				<li class="fieldcontain">
-					<span id="persona-label" class="property-label"><g:message code="usuarioFree.persona.label" default="Persona" /></span>
-					
-						<span class="property-value" aria-labelledby="persona-label"><g:link controller="persona" action="show" id="${usuarioFreeInstance?.persona?.id}">${usuarioFreeInstance?.persona?.encodeAsHTML()}</g:link></span>
-					
+					<span class="property-label" aria-labelledby="persona-label"><g:link controller="persona" action="show" id="${usuarioFreeInstance?.persona?.id}">Ver datos personales</g:link></span>
+				</li>
+				<li>
+					<span class="property-label" aria-labelledby="persona-label"><g:link action="showPreferencias" id="${usuarioFreeInstance?.id}">Ver Preferencias</g:link></span>
 				</li>
 				</g:if>
-			
-			</ol>
+			</ul>
 		</div>
 	</body>
 </html>

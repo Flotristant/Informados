@@ -51,7 +51,7 @@ class Persona {
 	}
 	
 	public String toString() {
-		return this.nombre+ " " + this.apellido+ " " + this.edad+ " " + this.email;
+		return this.nombre+ " " + this.apellido+ " " ;
 	}
 	
 	public Boolean puedeVerPublicidad() {
