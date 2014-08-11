@@ -588,3 +588,9 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+.publicidad-informados {
+    border-style: solid;
+	border-width: 1px;
+	display: block;
+}

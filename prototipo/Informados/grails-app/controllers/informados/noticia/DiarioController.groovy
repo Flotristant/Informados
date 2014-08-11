@@ -4,6 +4,9 @@ package informados.noticia
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import informados.usuario.Persona
+import informados.usuario.Preferencias
+import informados.usuario.Usuario
 
 @Transactional(readOnly = true)
 class DiarioController {
@@ -14,6 +17,26 @@ class DiarioController {
         params.max = Math.min(max ?: 10, 100)
         respond Diario.list(params), model:[diarioInstanceCount: Diario.count()]
     }
+	
+	def votar(Noticia noticiaInstance) {
+		Persona persona = session.user
+		List<Usuario> usuarios = Usuario.findAllByPersona(persona)
+		flash.message = noticiaInstance.votar(usuarios[0])
+		def targetUri = params.targetUri ?: "/"
+		redirect(uri: targetUri)
+	}
+	
+	def indexByUsuario(Integer max) {
+		params.max = Math.min(max ?: 10, 100)
+		List<Usuario> usuarios = Usuario.findAllByPersona(session.user)
+		Usuario usuario = usuarios[0]
+		if(usuario.preferencias != null) {
+			Preferencias preferencias = Preferencias.findById(usuario.preferencias.id)
+			respond preferencias.diarios.asList()
+		} else {
+			respond Diario.list()
+		}
+	}
 
     def show(Diario diarioInstance) {
 		Map<String, List<Noticia>> noticiasPorSeccion = new HashMap<Seccion, List<Noticia>>()

@@ -4,11 +4,12 @@ import informados.noticia.Diario
 import informados.noticia.Seccion
 
 class Preferencias {
-	List<Diario> diarios
-	List<Seccion> secciones
+	static hasMany=[diarios:Diario, secciones:Seccion]
+//	List<Diario> diarios
+//	List<Seccion> secciones
 
     static constraints = {
-		
+
     }
 	
 	public void agregarDiario(Diario diario) {

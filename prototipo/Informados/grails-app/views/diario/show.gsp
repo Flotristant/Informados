@@ -26,8 +26,7 @@
 				<table>
 					<thead>
 						<tr>
-							<th><span> ${seccion}
-							</span></th>
+							<th><span> ${seccion}</span></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,7 +34,14 @@
 							in="${noticiasPorSeccion.getAt(seccion)}">
 							<tr>
 								<td><a href="${noticia.link}"> ${noticia.titulo}</a></td>
-								<td><g:link action="indexNoticiasRelacionadas" controller="noticia" id="${noticia.id}">Ver Noticias Relacionadas</g:link></td>
+								<td><g:link action="indexNoticiasRelacionadas"
+										controller="noticia" id="${noticia.id}">Ver Noticias Relacionadas</g:link></td>
+								<td>
+									${noticia.getPuntos()}
+								</td>
+								<td><g:link action="votar" id="${noticia.id}" params="[targetUri: (request.forwardURI - request.contextPath)]">
+										<img src="${resource(dir: 'images', file: 'FB-ThumbsUp_29.png')}" alt="Like" />
+									</g:link></td>
 							</tr>
 						</g:each>
 					</tbody>

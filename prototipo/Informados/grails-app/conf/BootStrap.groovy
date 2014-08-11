@@ -2,6 +2,7 @@ import informados.noticia.Diario
 import informados.noticia.Noticia
 import informados.noticia.Seccion
 import informados.usuario.Persona
+import informados.usuario.Preferencias
 import informados.usuario.UsuarioFree
 import ranking.Ranking
 import ranking.Voto
@@ -9,29 +10,6 @@ import ranking.Voto
 class BootStrap {
 
 	def init = { servletContext ->
-		def estudiante = new Persona(userName:"estudiante",password:"estudiante",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Estudiante", isLoggedOn:false, isAdmin:false, passwordConfirmation:"estudiante")
-		estudiante.save()
-		if(estudiante.hasErrors()){
-			println estudiante.errors
-		}
-		def profesional = new Persona(userName:"profesional",password:"profesional", passwordConfirmation:"profesional",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional", isLoggedOn:false, isAdmin:false)
-		profesional.save()
-		if(profesional.hasErrors()){
-			println profesional.errors
-		}
-		def free = new Persona(userName:"free",password:"123456", passwordConfirmation:"123456",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Free", isLoggedOn:false, isAdmin:false)
-		free.save()
-		if(free.hasErrors()){
-			println free.errors
-		}
-			
-		
-		def admin = new Persona(userName:"admin",password:"admin", passwordConfirmation:"admin",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional", isLoggedOn:false, isAdmin:true)
-		admin.save()
-		if(admin.hasErrors()){
-			println admin.errors
-		}
-
 
 		/* Inicializacion de secciones */
 
@@ -93,6 +71,42 @@ class BootStrap {
 		clarin.save()
 		if(clarin.hasErrors()) {
 			println clarin.errors
+		}
+		
+		def estudiante = new Persona(userName:"estudiante",password:"estudiante",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Estudiante", isLoggedOn:false, isAdmin:false, passwordConfirmation:"estudiante")
+		estudiante.save()
+		if(estudiante.hasErrors()){
+			println estudiante.errors
+		}
+		def profesional = new Persona(userName:"profesional",password:"profesional", passwordConfirmation:"profesional",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional", isLoggedOn:false, isAdmin:false)
+		profesional.save()
+		if(profesional.hasErrors()){
+			println profesional.errors
+		}
+		def free = new Persona(userName:"free",password:"123456", passwordConfirmation:"123456",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Free", isLoggedOn:false, isAdmin:false)
+		free.save()
+		if(free.hasErrors()){
+			println free.errors
+		}
+		
+		def preferencias = new Preferencias(diarios:[infobae, clarin], secciones:[seccionPolitica, seccionDeportes])
+		preferencias.save()
+		if(preferencias.hasErrors()) {
+			println preferencias.errors
+		}
+		
+		UsuarioFree usuarioFree = new UsuarioFree()
+		usuarioFree.persona = free
+		usuarioFree.preferencias = preferencias
+		usuarioFree.save()
+		if(usuarioFree.hasErrors()) {
+			println usuarioFree.errors
+		}		
+		
+		def admin = new Persona(userName:"admin",password:"admin", passwordConfirmation:"admin",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Profesional", isLoggedOn:false, isAdmin:true)
+		admin.save()
+		if(admin.hasErrors()){
+			println admin.errors
 		}
 
 	}
