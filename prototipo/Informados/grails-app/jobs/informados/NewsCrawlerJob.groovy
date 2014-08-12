@@ -8,24 +8,16 @@ import informados.noticia.Noticia;
 import informados.noticia.Seccion;
 import informados.noticia.Diario;
 
+import cue.lang.WordIterator
+import cue.lang.stop.StopWords
+
 class NewsCrawlerJob {
 
-    /* feeds de los distintos diarios con sus secciones */
-    /*def feed_source = [clarin: 
-                       [politica: "http://www.clarin.com/rss/politica/",
-                        deportes: "http://www.clarin.com/rss/deportes/"],
-                       
-                       lanacion: 
-                       [politica: "http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=30",
-                        deportes: "http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=131"],
-                       
-                       infobae:
-                       [politica: "http://cdn01.am.infobae.com/adjuntos/163/rss/politica.xml",
-                        deportes: "http://cdn01.am.infobae.com/adjuntos/163/rss/deportes.xml"]]*/
+    /* Levanta los feeds de los distintos diarios con sus secciones configurados en la base (ver conf/Bootstrap.groovy) */
 
     /* La tarea se ejecuta cada repeatInterval milisegundos.Se ejecuta repeatCount+1 veces*/
     static triggers = {
-        simple name: 'NewsCrawlerTrigger', startDelay: 0, repeatInterval: 5000, repeatCount: 5
+        simple name: 'NewsCrawlerTrigger', startDelay: 5000, repeatInterval: 5000, repeatCount: 0
     }
 
     /*
@@ -34,6 +26,7 @@ class NewsCrawlerJob {
      */
     def execute(){
         print "NewsCrawler run!"		
+
 		def diarios = Diario.findAll();
 
 		if(diarios== null) {
@@ -48,8 +41,41 @@ class NewsCrawlerJob {
 		}
 
         print " \t Noticias insertadas:"+Noticia.findAll()
+
+        print "Analizando noticias"
+        //def noticias = Noticia.findAll()
+
+        //procesarNoticias(noticias)
     }
 
+    def procesarNoticias(noticias) { 
+
+        def stopWords = {}
+
+        for(noticia in noticias) { 
+            stopWords.put(noticia.titulo, sacarStopWordsDeNoticia(noticia))
+        }
+
+        for(n in stopWords.keySet()) { 
+            print n
+        }
+    }
+
+    def sacarStopWordsDeNoticia(noticia) { 
+        sacarStopWords(noticia.titulo)
+    }
+
+    def sacarStopWords(texto) { 
+
+        def words = []
+
+        for (final String word : new WordIterator(texto)) {
+            if (!StopWords.Spanish.isStopWord(word)) {
+                words.add(word)
+            }
+        }
+        words
+    }
     /*
      * Lee y parsea el feed a partir de la url, genera la noticia y la
      * gurda en la BD.
@@ -107,6 +133,8 @@ class NewsCrawlerJob {
                 if(noticia.hasErrors()) {
                     println noticia.errors
                 }
+                
+                print sacarStopWordsDeNoticia(noticia)
             } else { 
                 print "\t ya existe noticia con hashCode()="+titulo.hashCode()
             }
