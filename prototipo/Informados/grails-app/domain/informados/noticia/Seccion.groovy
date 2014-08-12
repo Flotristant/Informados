@@ -9,4 +9,5 @@ public class Seccion {
 	public String toString() {
 		return nombre
 	}
+	
 }

@@ -1,4 +1,6 @@
-<div class="page-header" id="logo" role="banner"><img src="/Informados/static/images/informados_logo_3.png" alt="Informados"/></div>
+<div class="page-header" id="logo" role="banner">
+<img src="${resource(dir: 'images', file: 'informados_logo_3.png')}" alt="Fiuba" />
+</div>
 <div class="row">
 	<div class="span12">
 		<g:if test="${!facebookContext.app.id}">

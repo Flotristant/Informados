@@ -3,6 +3,7 @@ package informados
 
 
 import static org.springframework.http.HttpStatus.*
+import informados.usuario.UsuarioAdministrador;
 import informados.usuario.UsuarioProfesional;
 import grails.transaction.Transactional
 
@@ -19,6 +20,14 @@ class UsuarioProfesionalController {
     def show(UsuarioProfesional usuarioProfesionalInstance) {
        respond usuarioProfesionalInstance
     }
+	
+	def showPreferencias(UsuarioProfesional usuarioProfesionalInstance) {
+		if(usuarioProfesionalInstance.preferencias != null) {
+			redirect(controller:"preferencias", action:"show", id:usuarioProfesionalInstance.preferencias.id)
+		} else {
+			redirect(controller:"preferencias", action:"create")
+		}
+	}
 
     def create() {
         respond new UsuarioProfesional(params)

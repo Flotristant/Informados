@@ -4,6 +4,7 @@ package informados
 
 import static org.springframework.http.HttpStatus.*
 import informados.usuario.UsuarioAdministrador;
+import informados.usuario.UsuarioEstudiante;
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -19,6 +20,14 @@ class UsuarioAdministradorController {
     def show(UsuarioAdministrador usuarioAdministradorInstance) {
 		return usuarioAdministradorInstance
     }
+	
+	def showPreferencias(UsuarioAdministrador usuarioAdministradorInstance) {
+		if(usuarioAdministradorInstance.preferencias != null) {
+			redirect(controller:"preferencias", action:"show", id:usuarioAdministradorInstance.preferencias.id)
+		} else {
+			redirect(controller:"preferencias", action:"create")
+		}
+	}
 
     def create() {
         respond new UsuarioAdministrador(params)

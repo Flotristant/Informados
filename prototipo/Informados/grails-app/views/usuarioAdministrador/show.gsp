@@ -25,10 +25,10 @@
 			
 				<g:if test="${usuarioAdministradorInstance?.persona}">
 				<li class="fieldcontain">
-					<span id="persona-label" class="property-label"><g:message code="usuarioAdministrador.persona.label" default="Persona" /></span>
-					
-						<span class="property-value" aria-labelledby="persona-label"><g:link controller="persona" action="show" id="${usuarioAdministradorInstance?.persona?.id}">${usuarioAdministradorInstance?.persona?.encodeAsHTML()}</g:link></span>
-					
+					<span class="property-label" aria-labelledby="persona-label"><g:link controller="persona" action="show" id="${usuarioAdministradorInstance?.persona?.id}">Ver datos personales</g:link></span>
+				</li>
+				<li>
+					<span class="property-label" aria-labelledby="persona-label"><g:link action="showPreferencias" id="${usuarioAdministradorInstance?.id}">Ver Preferencias</g:link></span>
 				</li>
 				</g:if>
 			

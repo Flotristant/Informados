@@ -1,6 +1,9 @@
 package informados.noticia
 
-class Noticia {	
+import informados.usuario.Usuario
+import ranking.Voto
+
+class Noticia {
 	String titulo
 	String copete
 	String resumen
@@ -8,22 +11,40 @@ class Noticia {
 	String RSS
 	static belongsTo = [diario:Diario]
 	Seccion seccion
-	Integer puntos=0
-    Integer hash
+	Date fecha = new Date()
+	String link
+	Integer hash
 
-    static constraints = {
+	static constraints = {
 		contenido blank: false, maxSize:500000
 		titulo blank:false
 		resumen blank:false, maxSize:500000
-		puntos blank:true
-		
-    }
-	
-	public String toString() {
-		return titulo + "( " +copete+" )["+hash+"]"
+		link blank:true, nullable:true
 	}
 	
-	public void votar() {
-		++puntos;
+	
+	public String toString() {
+		return titulo + "["+hash+"]"
+	}
+
+	public String votar(Usuario usuario) {
+		List votos = Voto.findAllByUsuarioAndNoticia(usuario, this)
+		if(votos.empty) {
+			Voto voto = new Voto(usuario:usuario, noticia:this)
+			voto.save(flush:true)
+			if(voto.hasErrors()) {
+				return voto.errors
+			}
+			this.save(flus:true)
+			if(this.hasErrors()) {
+				return this.errors
+			}
+		} else {
+			return "Hey no puedes volver a votar la misma noticia!"
+		}
+	}
+	
+	public Integer getPuntos() {
+		return Voto.findAllByNoticia(this).size()
 	}
 }

@@ -19,6 +19,14 @@ class UsuarioFreeController {
     def show(UsuarioFree usuarioFreeInstance) {
 		respond usuarioFreeInstance
     }
+	
+	def showPreferencias(UsuarioFree usuarioFreeInstance) {
+		if(usuarioFreeInstance.preferencias != null) {
+			redirect(controller:"preferencias", action:"show", id:usuarioFreeInstance.preferencias.id)
+		} else {
+			redirect(controller:"preferencias", action:"create")
+		}
+	}
 
     def create() {
         respond new UsuarioFree(params)

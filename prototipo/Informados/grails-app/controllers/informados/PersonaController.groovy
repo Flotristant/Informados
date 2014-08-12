@@ -39,13 +39,30 @@ class PersonaController {
 			}
 			session.user = user
 			flash.message = "Hello ${user.userName}!"
+			createUsuario(user)
 			redirect(uri: "/")
-			//<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 		}else{
 			showErrorMessage(flash, params)
 		}
 	}
 
+	
+	private createUsuario(Persona usuarioInstance) {
+		def user =	usuarioInstance
+		if (user.isAdmin) {
+			findOrCreateUsuarioAdinistrador(user, flash, params);
+			return
+		}
+		if(user.suscripcion == "Profesional") {
+			findOrCreateUsuarioProfesional(user, flash, params)
+		} else if(user.suscripcion == "Estudiante") {
+			findOrCreateUsuarioEstudiante(user, flash, params)
+		} else{
+			findOrCreatePersonaFree(user, flash, params)
+		}
+		return
+	}
+	
 	private createPersonaFreeAndShow(Persona user, Map flash, Map params) {
 		UsuarioFree usuarioFree= findOrCreatePersonaFree(user, flash, params)
 		redirect(controller:"usuarioFree", action:"show", id:usuarioFree.id)
@@ -69,7 +86,7 @@ class PersonaController {
 	}
 
 	private UsuarioAdministrador findOrCreateUsuarioAdinistrador(Persona user, Map flash, Map params) {
-		UsuarioAdministrador usuarioAdministrador = (UsuarioAdministrador)Usuario.findOrCreateByPersona(user)
+		UsuarioAdministrador usuarioAdministrador = UsuarioAdministrador.findOrCreateByPersona(user)
 		if(usuarioAdministrador.id == null) {
 			usuarioAdministrador.save()
 			if(usuarioAdministrador.hasErrors()) {

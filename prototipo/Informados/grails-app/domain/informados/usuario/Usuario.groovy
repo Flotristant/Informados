@@ -1,13 +1,16 @@
 package informados.usuario
 
-public abstract class Usuario {
+public class Usuario {
 	Persona persona
 	Preferencias preferencias 
 	
-	public abstract Integer getCantidadMaximaDiarios();
-	
+	public Integer getCantidadMaximaDiarios(){}	
 
     static constraints = {
 		preferencias nullable:true, blank:true
     }
+	
+	public Boolean puedeVerPublicidad() {
+		return true
+	}
 }

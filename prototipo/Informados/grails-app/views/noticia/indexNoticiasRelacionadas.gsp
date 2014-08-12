@@ -43,7 +43,7 @@
 							${fieldValue(bean: noticiaInstance, field: "seccion")}
 						</td>
 						<td>
-							${fieldValue(bean: noticiaInstance, field: "titulo")}
+							<a href="${noticiaInstance.link}">${fieldValue(bean: noticiaInstance, field: "titulo")}</a>
 						</td>
 						<td>
 							${raw(noticiaInstance.resumen)}

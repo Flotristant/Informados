@@ -29,5 +29,7 @@ class UsuarioAdministrador extends Usuario {
 	public Integer getCantidadMaximaDiarios() {
 		return CANTIDAD_MAXIMA_DIARIOS
     }
+	
+	
 }
 

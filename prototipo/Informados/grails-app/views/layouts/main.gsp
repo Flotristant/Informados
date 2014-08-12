@@ -27,6 +27,14 @@
 <r:layoutResources />
 </head>
 <body>
+	<g:if
+		test="${session.user == null || session.user?.puedeVerPublicidad() }">
+		<div class="publicidad-informados">
+			<a href="http://www.fi.uba.ar"><img
+				src="${resource(dir: 'images', file: 'banner-publicidad.png')}"
+				alt="Fiuba" /></a>
+		</div>
+	</g:if>
 	<div>
 		<fieldset class="buttons">
 			<g:if test="${session.user}">
@@ -72,30 +80,33 @@
 			<li><a class="home" href="${createLink(uri: '/')}"><g:message
 						code="default.home.label" /></a></li>
 			<g:if test="${session.user}">
-				<li><g:link class="show" action="showPerfil" controller="persona"
-						id="${session.user?.id}">Perfil</g:link></li>
+				<li><g:link class="show" action="showPerfil"
+						controller="persona" id="${session.user?.id}">Perfil</g:link></li>
 				<li><g:link class="show" action="showRankingNoticias"
-						controller="noticia" id="${session.user?.id}">Ver ranking de Noticias</g:link>
+						controller="noticia">Ver ranking de Noticias</g:link></li>
+				<li><g:link class="show" action="indexByUsuario" controller="diario">Mis Noticias</g:link>
 				</li>
 			</g:if>
 		</ul>
 	</div>
 	<g:if test="${session.user}">
 		<div align="center">
-			<ul>
-				<li><g:form
-						url="[action:'buscarNoticia', controller:'noticia']">
-						<fieldset class="form">
-							<g:textField name="keywords" value="${params[keywords]}" />
-							<g:submitButton name="buscar" class="save" value="Buscar Noticia" />
-						</fieldset>
-					</g:form></li>
-
-			</ul>
+			<g:form url="[action:'buscarNoticia', controller:'noticia']">
+				<fieldset class="form">
+					<g:textField name="keywords" value="${params[keywords]}" />
+					<g:submitButton name="buscar" class="save" value="Buscar Noticia" />
+				</fieldset>
+			</g:form>
 		</div>
 	</g:if>
 	<g:layoutBody />
 	<r:layoutResources />
-	<div class="footer" role="contentinfo"></div>
+	<g:if
+		test="${session.user == null || session.user?.puedeVerPublicidad() }">
+		<div class="publicidad-informados">
+			<a href="http://www.fi.uba.ar"><img
+				src="${resource(dir: 'images', file: 'fiubaLogo.png')}" alt="Fiuba" /></a>
+		</div>
+	</g:if>
 </body>
 </html>
