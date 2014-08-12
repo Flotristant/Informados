@@ -41,7 +41,6 @@ class PersonaController {
 			flash.message = "Hello ${user.userName}!"
 			createUsuario(user)
 			redirect(uri: "/")
-			//<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 		}else{
 			showErrorMessage(flash, params)
 		}

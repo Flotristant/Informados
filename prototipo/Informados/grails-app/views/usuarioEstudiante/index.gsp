@@ -25,6 +25,7 @@
 					<tr>
 					
 						<th><g:message code="usuarioEstudiante.persona.label" default="Persona" /></th>
+						<th>Preferencias</th>
 					
 					</tr>
 				</thead>
@@ -33,6 +34,7 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${usuarioEstudianteInstance.id}">${fieldValue(bean: usuarioEstudianteInstance, field: "persona")}</g:link></td>
+						<td><g:link action="show" controller="preferencia" id="${usuarioEstudianteInstance.preferencias?.id}">${fieldValue(bean: usuarioEstudianteInstance, field: "preferencias")}</g:link></td>
 					
 					</tr>
 				</g:each>

@@ -6,7 +6,7 @@
 <meta name="layout" content="main">
 <g:set var="entityName"
 	value="${message(code: 'preferencias.label', default: 'Preferencias')}" />
-<title><g:message code="default.show.label" args="[entityName]" /></title>
+<title>Tus preferencias</title>
 </head>
 <body>
 	<a href="#show-preferencias" class="skip" tabindex="-1"><g:message
@@ -47,14 +47,11 @@
 			</g:if>
 
 		</ol>
-		<g:form url="[resource:seccionInstance, action:'delete']"
-			method="DELETE">
-			<fieldset class="buttons">
-				<g:link class="edit" action="edit" resource="${preferenciasInstance}">
-					Editar preferencias
-				</g:link>
-			</fieldset>
-		</g:form>
+		<fieldset class="buttons">
+			<g:link class="edit" action="edit" resource="${preferenciasInstance}">
+				Editar preferencias
+			</g:link>
+		</fieldset>
 	</div>
 </body>
 </html>

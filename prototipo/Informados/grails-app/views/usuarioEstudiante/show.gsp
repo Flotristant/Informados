@@ -14,8 +14,7 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list usuarioEstudiante">
-			
+			<ul class="property-list usuarioEstudiante">			
 				<g:if test="${usuarioEstudianteInstance?.persona}">
 				<li class="fieldcontain">
 					<span class="property-label" aria-labelledby="persona-label"><g:link controller="persona" action="show" id="${usuarioEstudianteInstance?.persona?.id}">Ver datos personales</g:link></span>
@@ -23,9 +22,8 @@
 				<li>
 					<span class="property-label" aria-labelledby="persona-label"><g:link action="showPreferencias" id="${usuarioEstudianteInstance?.id}">Ver Preferencias</g:link></span>
 				</li>
-				</g:if>
-			
-			</ol>
+				</g:if>			
+			</ul>
 		</div>
 	</body>
 </html>

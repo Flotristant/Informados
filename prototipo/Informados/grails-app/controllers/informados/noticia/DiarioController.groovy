@@ -40,7 +40,18 @@ class DiarioController {
 
     def show(Diario diarioInstance) {
 		Map<String, List<Noticia>> noticiasPorSeccion = new HashMap<Seccion, List<Noticia>>()
+		Preferencias preferencias = null
+		if(session.user != null) {
+			List<Usuario> usuarios = Usuario.findAllByPersona(session.user)
+			Usuario usuario = usuarios[0]
+			preferencias = usuario.preferencias
+		}
 		for(noticia in diarioInstance.noticias) {
+			if(preferencias != null) {
+				if(!esSeccionDelUsuario(preferencias.secciones.asList(), noticia.seccion)) {
+					continue
+				}
+			}
 			def noticias_seccion = noticiasPorSeccion.getAt(noticia.seccion.nombre)
 			if(noticias_seccion == null) {
 				noticias_seccion = [noticia]
@@ -51,6 +62,19 @@ class DiarioController {
 		}		
         respond diarioInstance, model:[noticiasPorSeccion: noticiasPorSeccion]
     }
+	
+	private Boolean esSeccionDelUsuario(List<Seccion> secciones, Seccion seccion) {
+		Boolean esSeccionDelUsuario=false
+		for(s in secciones) {
+			if(s.nombre == seccion.nombre) {
+				esSeccionDelUsuario=true
+				break
+			}
+		}
+		return esSeccionDelUsuario
+	}
+	
+
 
     def create() {
         respond new Diario(params)
