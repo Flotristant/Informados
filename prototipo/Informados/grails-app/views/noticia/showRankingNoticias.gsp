@@ -7,13 +7,6 @@
 <g:set var="entityName"
 	value="${message(code: 'noticia.label', default: 'Noticia')}" />
 <title><g:message code="default.list.label" args="[entityName]" /></title>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="${resource(dir: 'js', file: 'jquery.upvote.js')}"></script>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.upvote.css')}"
-	type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.upvote.css')}"
-	type="text/css">
 </head>
 <body>
 	<a href="#list-noticia" class="skip" tabindex="-1"><g:message
@@ -54,11 +47,7 @@
 							${fieldValue(bean: noticiaInstance, field: "seccion")}
 						</td>
 
-						<td><div id="topic" class="upvote">
-								<a class="upvote"></a> <span class="count">
-									${noticiaInstance.getPuntos()}
-								</span> <a class="downvote"></a> <a class="star"></a>
-							</div></td>
+						<td>${noticiaInstance.getPuntos()}</td>
 
 
 						<td><a
