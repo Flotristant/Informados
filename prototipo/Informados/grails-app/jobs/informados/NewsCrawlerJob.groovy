@@ -7,12 +7,20 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import informados.noticia.Noticia;
 import informados.noticia.Seccion;
 import informados.noticia.Diario;
+import informados.noticia.Tema;
+
+import cue.lang.WordIterator
+import cue.lang.stop.StopWords
+
+import java.util.Random  
 
 class NewsCrawlerJob {
 
+    Random rand = new Random()
+
 	/* La tarea se ejecuta cada repeatInterval milisegundos.Se ejecuta repeatCount+1 veces*/
 	static triggers = {
-		simple name: 'NewsCrawlerTrigger', startDelay: 0, repeatInterval: 5000, repeatCount: 5
+		simple name: 'NewsCrawlerTrigger', startDelay: 5000, repeatInterval: 5000, repeatCount: 0
 	}
 
 	/*
@@ -21,6 +29,7 @@ class NewsCrawlerJob {
 	 */
 	def execute(){
 		print "NewsCrawler run!"
+
 		def diarios = Diario.findAll();
 
 		if(diarios.empty) {
@@ -35,8 +44,64 @@ class NewsCrawlerJob {
 			}
 		}
 
-		//print " \t Noticias insertadas:"+Noticia.findAll()
+		
+        for(seccion in Seccion.findAll()) { 
+            procesarNoticias(Noticia.findAllBySeccion(seccion))   
+        }
+
+        //procesarNoticias(Noticia.findAll())
+
 	}
+
+    def procesarNoticias(noticias) { 
+
+        while(noticias.size()>1){ 
+            def tema = new Tema()
+            tema.save()
+            def cant = rand.nextInt(5)
+            cant = (cant<noticias.size())?cant:noticias.size()
+
+            for(i in 0..cant-1){ 
+                def noticia = noticias.pop()
+                noticia.setTema(tema)
+                noticia.save(flush: true)
+            }
+        }
+        
+        /*
+        for(i in 0..noticias.size()-1) {
+            print "analizando"+noticias[i].getSeccion()
+
+            for(j in 0..noticias.size()-1) { 
+                //print "analizando"+noticias[i].toString()
+                //print noticias[i].titulo
+                //print noticias[j].titulo
+                //print getEquals(noticias[i], noticias[j])
+                print ""
+            }
+            }*/
+    }
+
+    def getEquals(noticia1, noticia2) {
+        return 0
+    }
+
+    def getPositividad(titulo, descripcion) { 
+        def texto = titulo
+
+        return rand.nextInt(100)
+    }
+     
+    def sacarStopWords(texto){ 
+        def palabras = []
+
+        for (final String word : new WordIterator(texto)) {
+            if (!StopWords.Spanish.isStopWord(word)) {
+                palabras.add(word)
+            }
+        }
+        return palabras
+    }
 
 	/*
 	 * Lee y parsea el feed a partir de la url, genera la noticia y la
@@ -88,14 +153,15 @@ class NewsCrawlerJob {
 				def resumen = item.description.text()?item.description.text():"la noticia no contiene resumen"
 
 				Noticia noticia = new Noticia(titulo: item.title.text(),
-				resumen: resumen,
-				RSS: url,
-				seccion:seccion,
-				contenido: resumen,
-				copete:"copete default" ,
-				link: item.link.text(),
-				hash:titulo.hashCode())
- 
+                                              resumen: resumen,
+                                              RSS: url,
+                                              seccion:seccion,
+                                              contenido: resumen,
+                                              copete:"copete default" ,
+                                              link: item.link.text(),
+                                              hash:titulo.hashCode(),
+                                              positivismo:getPositividad(titulo,resumen))
+                
 				noticia.diario=diario;
 				noticia.save()
 				if(noticia.hasErrors()) {

@@ -3,6 +3,8 @@ package informados.noticia
 import informados.usuario.Usuario
 import ranking.Voto
 
+import informados.noticia.Tema
+
 class Noticia {
 	String titulo
 	String copete
@@ -14,17 +16,22 @@ class Noticia {
 	Date fecha = new Date()
 	String link
 	Integer hash
+    Tema tema
+
+    // numero del 1..100 que indica el nivel de positividad de la noticia
+    Integer positivismo
 
 	static constraints = {
 		contenido blank: false, maxSize:500000
 		titulo blank:false
 		resumen blank:false, maxSize:500000
 		link blank:true, nullable:true
+        tema nullable:true
 	}
 	
 	
 	public String toString() {
-		return titulo + "["+hash+"]"
+		return titulo + "(positivismo="+positivismo+")"+"["+hash+"]"
 	}
 
 	public String votar(Usuario usuario) {

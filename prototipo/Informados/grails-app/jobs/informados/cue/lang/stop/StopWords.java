@@ -39,11 +39,11 @@ import java.io.FileNotFoundException;
  */
 public enum StopWords {
     Arabic(), Armenian(), Catalan(true), Croatian(), Czech(), Dutch(), //
-    Danish(), English(), Esperanto(), Farsi(), Finnish(), //
-    French(true), German(), Greek(), Hindi(), Hungarian(), //
-    Italian(), Latin(), Norwegian(), Polish(), Portuguese(), //
-    Romanian(), Russian(), Slovenian(), Slovak(), Spanish(), //
-    Swedish(), Hebrew(), Turkish(), Custom();
+        Danish(), English(), Esperanto(), Farsi(), Finnish(), //
+        French(true), German(), Greek(), Hindi(), Hungarian(), //
+        Italian(), Latin(), Norwegian(), Polish(), Portuguese(), //
+        Romanian(), Russian(), Slovenian(), Slovak(), Spanish(), //
+        Swedish(), Hebrew(), Turkish(), Custom(), Positivas(), Negativas();
 
     public static StopWords guess(final String text) {
         return guess(new Counter<String>(new WordIterator(text)));
