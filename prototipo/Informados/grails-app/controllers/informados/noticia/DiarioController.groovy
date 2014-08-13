@@ -59,7 +59,15 @@ class DiarioController {
 			} else {
 				noticiasPorSeccion.getAt(noticia.seccion.nombre).add(noticia)
 			}
-		}		
+		}
+		
+		for(seccion in noticiasPorSeccion.keySet()) {
+			List<Noticia> noticias = noticiasPorSeccion.getAt(seccion).sort {
+				it.positivismo
+			}
+			noticiasPorSeccion.putAt(seccion, noticias)
+		}
+			
         respond diarioInstance, model:[noticiasPorSeccion: noticiasPorSeccion]
     }
 	

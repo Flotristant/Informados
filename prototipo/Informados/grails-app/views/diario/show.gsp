@@ -30,8 +30,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<g:each var="noticia" status="j"
-							in="${noticiasPorSeccion.getAt(seccion)}">
+						<g:each var="noticia" status="j" in="${noticiasPorSeccion.getAt(seccion)}">
 							<tr>
 								<td><a href="${noticia.link}"> ${noticia.titulo}</a></td>
 								<td><g:link action="indexNoticiasRelacionadas"
@@ -39,8 +38,18 @@
 								<td>
 									${noticia.getPuntos()}
 								</td>
-								<td><g:link action="votar" id="${noticia.id}" params="[targetUri: (request.forwardURI - request.contextPath)]">
-										<img src="${resource(dir: 'images', file: 'FB-ThumbsUp_29.png')}" alt="Like" />
+								<td><g:if test="${noticia.positivismo < 50}">
+										<img src="${resource(dir: 'images', file: 'term_bajo.gif')}" />
+									</g:if> <g:if test="${noticia.positivismo == 50}">
+										<img src="${resource(dir: 'images', file: 'term_medio.gif')}" />
+									</g:if> <g:if test="${noticia.positivismo > 50}">
+										<img src="${resource(dir: 'images', file: 'term_alto.gif')}" />
+									</g:if></td>
+								<td><g:link action="votar" id="${noticia.id}"
+										params="[targetUri: (request.forwardURI - request.contextPath)]">
+										<img
+											src="${resource(dir: 'images', file: 'FB-ThumbsUp_29.png')}"
+											alt="Like" />
 									</g:link></td>
 							</tr>
 						</g:each>

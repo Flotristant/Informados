@@ -1,6 +1,10 @@
 package informados.noticia
 
 import informados.usuario.Usuario
+import net.sf.javaml.clustering.Clusterer
+import net.sf.javaml.clustering.KMeans
+import net.sf.javaml.core.Dataset
+import net.sf.javaml.tools.data.FileHandler
 import ranking.Voto
 
 import informados.noticia.Tema
@@ -74,17 +78,23 @@ class Noticia {
 		return cantidad_negativas
 	}
 	
-//	private sacarStopWords(String texto){ 
-//        def palabras = []
-//
-//        for (final String word : new WordIterator(texto)) {
-//            if (!StopWords.Spanish.isStopWord(word)) {
-//                palabras.add(word)
-//            }
-//        }
-//        return palabras
-//    }
+	private void createDataSet() {
+		def noticias = Noticia.list()
+		BufferedWriter writer = new BufferedWriter(new FileWriter("noticias.data"));
+		for(noticia in noticias) {
+			writer.writeLine(noticia.titulo+";"+noticia.resumen+";"+noticia.seccion+";"+noticia.fecha)			
+		}
+		writer.flush()
+		writer.close()
+	}
 	
+	public void setTemas() {
+		createDataSet()
+		Dataset data = FileHandler.loadDataset(new File("noticias.data"))
+		Clusterer km = new KMeans();
+		Dataset[] clusters = km.cluster(data);
+		println("clusters: "+clusters)
+	}
 	
 	private List<String> crearListadoPalabras(String filename) {
 		def palabras = new ArrayList<String>()

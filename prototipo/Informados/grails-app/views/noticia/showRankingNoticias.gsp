@@ -53,6 +53,17 @@
 						<td><a
 							href="${fieldValue(bean: noticiaInstance, field: "link")}">Ver
 								Noticia</a></td>
+						<td>
+							<g:if test="${noticiaInstance.positivismo < 0.5}">
+								<img src="${resource(dir: 'images', file: 'term_bajo.gif')}" />
+							</g:if>
+							<g:if test="${noticiaInstance.positivismo == 0.5}">
+								<img src="${resource(dir: 'images', file: 'term_medio.gif')}" />
+							</g:if>
+							<g:if test="${noticiaInstance.positivismo > 0.5}">
+								<img src="${resource(dir: 'images', file: 'term_alto.gif')}" />
+							</g:if>	
+						</td>	
 
 					</tr>
 				</g:each>

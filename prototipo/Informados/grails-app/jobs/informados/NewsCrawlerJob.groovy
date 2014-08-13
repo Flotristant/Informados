@@ -20,7 +20,7 @@ class NewsCrawlerJob {
 
 	/* La tarea se ejecuta cada repeatInterval milisegundos.Se ejecuta repeatCount+1 veces*/
 	static triggers = {
-		simple name: 'NewsCrawlerTrigger', startDelay: 5000, repeatInterval: 5000, repeatCount: 0
+		simple name: 'NewsCrawlerTrigger', startDelay: 5000, repeatInterval: 5000, repeatCount: 5
 	}
 
 	/*
@@ -28,7 +28,7 @@ class NewsCrawlerJob {
 	 * y las guarda en la BD.
 	 */
 	def execute(){
-		print "NewsCrawler run!"
+		print "NewsCrawler run!" 
 
 		def diarios = Diario.findAll();
 
@@ -36,6 +36,7 @@ class NewsCrawlerJob {
 			print "no se encontraron diarios!"
 			return
 		}
+
 		for(diario in diarios) {
 			print diario.toString()
 			for(seccionName in diario.RSSUrls.keySet()) {
@@ -44,52 +45,87 @@ class NewsCrawlerJob {
 			}
 		}
 
-		
+        // proceso las noticias por  secciones
         for(seccion in Seccion.findAll()) { 
             procesarNoticias(Noticia.findAllBySeccion(seccion))   
         }
-
+		def noticia = new Noticia(Titulo:"asdads ",resumen:"asdas ", contenido: "contenido", copete:"lala", RSS:"rss", positivismo:20)
+		noticia.setTemas()
         //procesarNoticias(Noticia.findAll())
 
 	}
 
     def procesarNoticias(noticias) { 
 
-        while(noticias.size()>1){ 
-            def tema = new Tema()
-            tema.save()
-            def cant = rand.nextInt(5)
-            cant = (cant<noticias.size())?cant:noticias.size()
+        if (noticias.size()==0) { 
+            return 0
+        }
 
-            for(i in 0..cant-1){ 
-                def noticia = noticias.pop()
-                noticia.setTema(tema)
-                noticia.save(flush: true)
+        def stopWords = []
+        def noticias_relacionadas = []
+
+        for(noticia in noticias) { 
+            stopWords.add(sacarStopWordsDeNoticia(noticia))
+            noticias_relacionadas.add([noticia])
+        }
+
+        // Compara las noticias entre si y elijo aquella que mas se parezca para formar un tema
+        for(i in 0..noticias.size()-1) {
+
+            def min_pos = i
+            
+            for(j in i..noticias.size()-1) {
+                def eq = getEquals(stopWords[i], stopWords[j])
+                if(eq>0) {
+                    min_pos = j
+                }
+            }
+
+            // agrupo las noticias
+            if(i != min_pos) {
+                noticias_relacionadas[min_pos].addAll(noticias_relacionadas[i])
+                noticias_relacionadas[i] = []
             }
         }
-        
-        /*
-        for(i in 0..noticias.size()-1) {
-            print "analizando"+noticias[i].getSeccion()
 
-            for(j in 0..noticias.size()-1) { 
-                //print "analizando"+noticias[i].toString()
-                //print noticias[i].titulo
-                //print noticias[j].titulo
-                //print getEquals(noticias[i], noticias[j])
-                print ""
+        // armo y guardo los temas con sus noticias relacionadas
+        for(lista in noticias_relacionadas){ 
+            if(lista.size()>0){ 
+                def tema = new Tema()
+                tema.save()
+
+                for(noticia in lista) { 
+                    noticia.tema = tema
+                    noticia.save(flush: true)
+                }
             }
-            }*/
+        }    
     }
 
-    def getEquals(noticia1, noticia2) {
+    /*
+     * Devuelve un numero que indica el nivel de parecido de dos noticias
+     * Por ahora devuelve un 0/1
+     */
+    def getEquals(stopWords_1, stopWords_2) {
+        for(word in stopWords_1){ 
+            if(stopWords_2.contains(word))
+                return 1
+        }
         return 0
     }
 
+    /*
+     * Devuelve el nivel de positividad en base al texto de la noticia
+     * Por hora esta mockeado y devuelve un numero random.
+     **/
     def getPositividad(titulo, descripcion) { 
-        def texto = titulo
-
         return rand.nextInt(100)
+    }
+
+ 
+    def sacarStopWordsDeNoticia(noticia){ 
+        def texto = noticia.titulo
+        return sacarStopWords(texto)
     }
      
     def sacarStopWords(texto){ 

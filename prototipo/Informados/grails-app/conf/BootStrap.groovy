@@ -125,7 +125,6 @@ class BootStrap {
 		if(admin.hasErrors()){
 			println admin.errors
 		}
-
 	}
 	def destroy = {
 	}
