@@ -24,7 +24,7 @@ class PersonaController {
 		}
 	}
 	def logout = {
-		flash.message = "Goodbye ${session.user.userName}"
+		flash.message = "Hasta luego ${session.user.userName}"
 		session.user = null
 		redirect(action:"login")
 	}

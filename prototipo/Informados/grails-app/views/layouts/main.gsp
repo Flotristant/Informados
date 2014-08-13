@@ -31,7 +31,7 @@
 		test="${session.user == null || session.user?.puedeVerPublicidad() }">
 		<div class="publicidad-informados">
 			<a href="http://www.fi.uba.ar"><img
-				src="${resource(dir: 'images', file: 'banner-publicidad.png')}"
+				src="${resource(dir: 'images', file: 'banner-publicidad1.png')}"
 				alt="Fiuba" /></a>
 		</div>
 	</g:if>
@@ -40,7 +40,7 @@
 			<g:if test="${session.user}">
 				<div align="right">
 					<div>
-						hello
+						Hola 
 						${session.user.userName}
 					</div>
 					<g:link controller="persona" action="logout">
@@ -69,7 +69,7 @@
 		</fieldset>
 	</div>
 	<div class="header" id="logo" role="banner">
-		<img src="${resource(dir: 'images', file: 'informados_logo_3.png')}"
+		<img src="${resource(dir: 'images', file: 'informados_logo_4.png')}"
 			alt="Informados" />
 	</div>
 	<div id="spinner" class="spinner" style="display: none;">
@@ -105,7 +105,7 @@
 		test="${session.user == null || session.user?.puedeVerPublicidad() }">
 		<div class="publicidad-informados">
 			<a href="http://www.fi.uba.ar"><img
-				src="${resource(dir: 'images', file: 'fiubaLogo.png')}" alt="Fiuba" /></a>
+				src="${resource(dir: 'images', file: 'fiubaLogo1.png')}" alt="Fiuba" /></a>
 		</div>
 	</g:if>
 </body>
