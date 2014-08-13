@@ -161,7 +161,6 @@ class NewsCrawlerJob {
                                               link: item.link.text(),
                                               hash:titulo.hashCode(),
                                               positivismo:getPositividad(titulo,resumen))
-                
 				noticia.diario=diario;
 				noticia.save()
 				if(noticia.hasErrors()) {

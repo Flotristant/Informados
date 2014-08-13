@@ -17,28 +17,30 @@
 			<table>
 			<thead>
 					<tr>
-						<g:sortableColumn property="copete" title="${message(code: 'noticia.copete.label', default: 'Copete')}" />
-					
-						<g:sortableColumn property="resumen" title="${message(code: 'noticia.resumen.label', default: 'Resumen')}" />
-					
 						<th><g:message code="noticia.seccion.label" default="Seccion" /></th>
-					
 						<g:sortableColumn property="titulo" title="${message(code: 'noticia.titulo.label', default: 'Titulo')}" />
-					
+						<g:sortableColumn property="resumen" title="${message(code: 'noticia.resumen.label', default: 'Resumen')}" />
+						<th>Positivismo</th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${noticiaInstanceList}" status="i" var="noticiaInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${noticiaInstance.id}">${fieldValue(bean: noticiaInstance, field: "RSS")}</g:link></td>
-					
-						<td>${raw(noticiaInstance.resumen)}</td>
-					
 						<td>${fieldValue(bean: noticiaInstance, field: "seccion")}</td>
-					
-						<td>${fieldValue(bean: noticiaInstance, field: "titulo")}</td>
-					
+						<td><g:link action="show" id="${noticiaInstance.id}">${fieldValue(bean: noticiaInstance, field: "titulo")}</g:link></td>
+						<td>${raw(noticiaInstance.resumen)}</td>
+						<td>
+							<g:if test="${noticiaInstance.positivismo < 0.5}">
+								<img src="${resource(dir: 'images', file: 'term_bajo.gif')}" />
+							</g:if>
+							<g:if test="${noticiaInstance.positivismo == 0.5}">
+								<img src="${resource(dir: 'images', file: 'term_medio.gif')}" />
+							</g:if>
+							<g:if test="${noticiaInstance.positivismo > 0.5}">
+								<img src="${resource(dir: 'images', file: 'term_alto.gif')}" />
+							</g:if>	
+						</td>				
 					</tr>
 				</g:each>
 				</tbody>

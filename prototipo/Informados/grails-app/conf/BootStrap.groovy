@@ -42,6 +42,13 @@ class BootStrap {
 		if(seccionEspectaculos.hasErrors()) {
 			println seccionEspectaculos.errors
 		}
+		
+		def seccionPoliciales = new Seccion(nombre:"POLICIALES")
+		seccionPoliciales.save()
+		if(seccionPoliciales.hasErrors()) {
+			println seccionPoliciales.errors
+		}
+
 
         /* Inicializacion de diarios */
 
@@ -68,9 +75,19 @@ class BootStrap {
 		Diario clarin = new Diario(nombre:"clarin")
         clarin.RSSUrls.put(seccionPolitica.nombre, "http://www.clarin.com/rss/politica/")
         clarin.RSSUrls.put(seccionDeportes.nombre, "http://www.clarin.com/rss/deportes/")
+		clarin.RSSUrls.put(seccionPoliciales.nombre, "http://clarin.feedsportal.com/c/33088/f/577690/index.rss")
 		clarin.save()
 		if(clarin.hasErrors()) {
 			println clarin.errors
+		}
+		
+		/* la prensa */
+		Diario laPrensa = new Diario(nombre:"la Prensa")
+		laPrensa.RSSUrls.put(seccionPolitica.nombre, "http://www.laprensa.com.ar/ResourcesManager.aspx?Resource=Rss.aspx&Rss=4")
+		laPrensa.RSSUrls.put(seccionEspectaculos.nombre, "http://www.laprensa.com.ar/ResourcesManager.aspx?Resource=Rss.aspx&Rss=10")
+		laPrensa.save()
+		if(laPrensa.hasErrors()) {
+			println laPrensa.errors
 		}
 		
 		def estudiante = new Persona(userName:"estudiante",password:"estudiante",nombre:"Florencia", apellido:"Tristant", email:"flo@flo.com", edad:"25", suscripcion:"Estudiante", isLoggedOn:false, isAdmin:false, passwordConfirmation:"estudiante")

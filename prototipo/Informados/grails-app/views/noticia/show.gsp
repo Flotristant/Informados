@@ -33,7 +33,6 @@
 					
 				</li>
 				</g:if>
-				
 				<g:if test="${noticiaInstance?.resumen}">
 				<li class="fieldcontain">
 					<span id="resumen-label" class="property-label"><g:message code="noticia.resumen.label" default="Resumen" /></span>
@@ -42,7 +41,7 @@
 					
 				</li>
 				</g:if>
-			
+
 			
 				<g:if test="${noticiaInstance?.contenido}">
 				<li class="fieldcontain">
@@ -52,6 +51,11 @@
 					
 				</li>
 				</g:if>
+				<li class="fieldcontain">
+					<span id="titulo-label" class="property-label">positivismo</span>					
+						<span class="property-value" aria-labelledby="titulo-label"><g:fieldValue bean="${noticiaInstance}" field="positivismo"/></span>					
+				</li>
+				
 			
 			</ol>
 		</div>

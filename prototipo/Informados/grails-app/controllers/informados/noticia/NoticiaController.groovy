@@ -34,7 +34,17 @@ class NoticiaController {
 	}
 	
 	def indexNoticiasRelacionadas(Noticia noticiaInstance) {
-		def noticiasRelacionadas = Noticia.findAllByContenidoLike("%"+noticiaInstance.contenido+"%")
+//		String busqueda=""
+//		String limpiezaHTML = noticiaInstance.quitarStopwords().replace("<b>", " ")
+//		limpiezaHTML = limpiezaHTML.replace("</b>", "")
+//		List<String> palabras = limpiezaHTML.split(" ,.;-")
+//		println("busco palabras:" + palabras)
+//		for(palabra in palabras) {
+//			busqueda += " %"+palabra+"%"
+//		}
+//		busqueda += palabras[0]
+//		println(busqueda)
+		def noticiasRelacionadas = Noticia.findAllByContenidoLike(noticiaInstance.contenido)
 		respond noticiasRelacionadas
 	}
 	
