@@ -61,7 +61,7 @@ class NewsCrawlerJob {
         def noticias_relacionadas = []
 
         for(noticia in noticias) { 
-            stopWords.add( (noticia))
+            stopWords.add(sacarStopWordsDeNoticia(noticia))
             noticias_relacionadas.add([noticia])
         }
 
