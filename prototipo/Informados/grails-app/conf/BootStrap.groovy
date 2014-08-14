@@ -57,6 +57,11 @@ class BootStrap {
 		infobae.RSSUrls.put(seccionPolitica.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/politica.xml")
 		infobae.RSSUrls.put(seccionDeportes.nombre, "http://cdn01.am.infobae.com/adjuntos/163/rss/deportes.xml")
 
+        /*
+		infobae.RSSUrls.put(seccionPolitica.nombre, "file://localhost/tmp/feeds/infobae/politica.xml")
+		infobae.RSSUrls.put(seccionDeportes.nombre, "file://localhost/tmp/feeds/infobae/deportes.xml")
+        */
+
 		infobae.save()
 		if(infobae.hasErrors()) {
 			println infobae.errors
@@ -66,6 +71,12 @@ class BootStrap {
 		Diario lanacion = new Diario(nombre:"lanacion")
         lanacion.RSSUrls.put(seccionPolitica.nombre,  "http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=30")
         lanacion.RSSUrls.put(seccionDeportes.nombre,  "http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=131")
+
+        /*
+        lanacion.RSSUrls.put(seccionPolitica.nombre,  "file://localhost/tmp/feeds/lanacion/categoria_id=30")
+        lanacion.RSSUrls.put(seccionDeportes.nombre,  "file://localhost/tmp/feeds/lanacion/categoria_id=131")
+        */
+
 		lanacion.save()
 		if(lanacion.hasErrors()) {
 			println lanacion.errors
@@ -76,6 +87,13 @@ class BootStrap {
         clarin.RSSUrls.put(seccionPolitica.nombre, "http://www.clarin.com/rss/politica/")
         clarin.RSSUrls.put(seccionDeportes.nombre, "http://www.clarin.com/rss/deportes/")
 		clarin.RSSUrls.put(seccionPoliciales.nombre, "http://clarin.feedsportal.com/c/33088/f/577690/index.rss")
+
+        /*
+        clarin.RSSUrls.put(seccionPolitica.nombre, "file://localhost/tmp/feeds/clarin/index.html")
+        clarin.RSSUrls.put(seccionDeportes.nombre, "file://localhost/tmp/feeds/clarin/index.html.1")
+		clarin.RSSUrls.put(seccionPoliciales.nombre, "file://localhost/tmp/feeds/clarin/index.rss")
+        */
+
 		clarin.save()
 		if(clarin.hasErrors()) {
 			println clarin.errors
