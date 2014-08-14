@@ -51,12 +51,12 @@
 						<td>
 							${fieldValue(bean: noticiaInstance, field: "puntos")}
 						</td>
-						<td><g:link action="votar" controller="noticia"
-								id="${noticiaInstance.id}">
-								<img
-									src="${resource(dir: 'images', file: 'FB-ThumbsUp_29.png')}"
-									alt="Like" />
-							</g:link></td>
+						<td><td><g:link action="votar" id="${noticiaInstance.id}"
+										params="[targetUri: (request.forwardURI - request.contextPath)]">
+										<img
+											src="${resource(dir: 'images', file: 'FB-ThumbsUp_29.png')}"
+											alt="Like" />
+									</g:link></td>
 
 					</tr>
 				</g:each>

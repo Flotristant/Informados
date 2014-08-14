@@ -82,6 +82,8 @@ class Noticia {
 		def noticias = Noticia.list()
 		BufferedWriter writer = new BufferedWriter(new FileWriter("noticias.data"));
 		for(noticia in noticias) {
+			noticia.resumen = noticia.resumen.replace(";", " ")
+			noticia.contenido = noticia.contenido.replace(";", " ")
 			writer.writeLine(noticia.titulo+";"+noticia.resumen+";"+noticia.seccion+";"+noticia.fecha)			
 		}
 		writer.flush()
@@ -90,7 +92,7 @@ class Noticia {
 	
 	public void setTemas() {
 		createDataSet()
-		Dataset data = FileHandler.loadDataset(new File("noticias.data"))
+		Dataset data = FileHandler.loadDataset(new File("noticias.data"), ";")
 		Clusterer km = new KMeans();
 		Dataset[] clusters = km.cluster(data);
 		println("clusters: "+clusters)

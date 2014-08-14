@@ -33,18 +33,29 @@ class NoticiaController {
 		respond noticias, model:[noticiaInstanceCount: noticias.size()]
 	}
 	
+	def indexNoticiaByTema(Noticia noticiaInstance) {
+		def diarios = Diario.list()
+		def noticias = diarios[0].noticias
+		def noticiasPorTema = new HashMap<Long, List<Noticia>>()
+		for(noticia in noticias) {
+			List<Noticia> noticiasTema = noticiasPorTema.getAt(noticia.tema.id)
+			if(noticiasTema == null) {
+				noticiasTema = new ArrayList<Noticia>()
+				println(noticia.tema.id)
+				noticiasPorTema.putAt(noticia.tema.id, noticiasTema)
+			} 
+			noticiasTema.add(noticia)
+		}
+		respond noticiaInstance, model:[noticiasPorTema: noticiasPorTema]
+	}
+	
 	def indexNoticiasRelacionadas(Noticia noticiaInstance) {
-//		String busqueda=""
-//		String limpiezaHTML = noticiaInstance.quitarStopwords().replace("<b>", " ")
-//		limpiezaHTML = limpiezaHTML.replace("</b>", "")
-//		List<String> palabras = limpiezaHTML.split(" ,.;-")
-//		println("busco palabras:" + palabras)
-//		for(palabra in palabras) {
-//			busqueda += " %"+palabra+"%"
-//		}
-//		busqueda += palabras[0]
-//		println(busqueda)
-		def noticiasRelacionadas = Noticia.findAllByContenidoLike(noticiaInstance.contenido)
+		ArrayList<Noticia> noticiasRelacionadas = Noticia.findAllByContenidoLike(noticiaInstance.contenido)
+		def noticiasDelMismoTema = Noticia.findAllByTema(noticiaInstance.tema)
+		noticiasRelacionadas.addAll(noticiasDelMismoTema)
+		if(noticiasRelacionadas.contains(noticiaInstance)) {
+			noticiasRelacionadas.remove(noticiaInstance)
+		}
 		respond noticiasRelacionadas
 	}
 	
@@ -60,7 +71,8 @@ class NoticiaController {
 		Persona persona = session.user
 		List<Usuario> usuarios = Usuario.findAllByPersona(persona)
 		flash.message = noticiaInstance.votar(usuarios[0])
-		respond 
+		def targetUri = params.targetUri ?: "/"
+		redirect(uri: targetUri)
 	}
 
     @Transactional

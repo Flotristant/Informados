@@ -20,7 +20,7 @@ class NewsCrawlerJob {
 
 	/* La tarea se ejecuta cada repeatInterval milisegundos.Se ejecuta repeatCount+1 veces*/
 	static triggers = {
-		simple name: 'NewsCrawlerTrigger', startDelay: 5000, repeatInterval: 5000, repeatCount: 5
+		simple name: 'NewsCrawlerTrigger', startDelay: 5000, repeatInterval: 5000, repeatCount: 0
 	}
 
 	/*
@@ -49,10 +49,6 @@ class NewsCrawlerJob {
         for(seccion in Seccion.findAll()) { 
             procesarNoticias(Noticia.findAllBySeccion(seccion))   
         }
-		def noticia = new Noticia(Titulo:"asdads ",resumen:"asdas ", contenido: "contenido", copete:"lala", RSS:"rss", positivismo:20)
-		noticia.setTemas()
-        //procesarNoticias(Noticia.findAll())
-
 	}
 
     def procesarNoticias(noticias) { 
@@ -65,7 +61,7 @@ class NewsCrawlerJob {
         def noticias_relacionadas = []
 
         for(noticia in noticias) { 
-            stopWords.add(sacarStopWordsDeNoticia(noticia))
+            stopWords.add( (noticia))
             noticias_relacionadas.add([noticia])
         }
 
